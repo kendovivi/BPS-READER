@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detailsv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/detailsElementBackground" >
+
+    
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="18dp"
+                android:src="@drawable/book_rails" />
+            
+            <TextView
+                android:id="@+id/bookName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/imageView1"
+                android:layout_toRightOf="@id/imageView1"
+                android:layout_marginLeft="35dp"
+                android:layout_centerVertical="true"
+                android:text="bookName" />
+
+            <TextView
+                android:id="@+id/bookAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/bookName"
+                android:layout_below="@id/bookName"
+                android:text="作者：　っっっw" />
+            
+            <TextView
+                android:id="@+id/bookPublisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/bookAuthor"
+                android:layout_below="@id/bookAuthor"
+                android:text="出版社：　っっw" />
+
+            <TextView
+                android:id="@+id/bookPTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/bookPublisher"
+                android:layout_below="@id/bookPublisher"
+                android:text="出版時間：　っっっw" />
+
+            <TextView
+                android:id="@+id/bookPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/bookPTime"
+                android:layout_below="@id/bookPTime"
+                android:text="価格：　っっっっw" />
+
+            
+
+            
+
+            <Button
+                android:id="@+id/button1"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/bookPrice"
+                android:layout_below = "@id/bookPrice"
+                android:text="読む" />
+
+            <Button
+                android:id="@+id/button2"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/button1"
+                android:layout_toRightOf="@+id/button1"
+                android:text="ほしいリストに入れる" />
+
+
+</RelativeLayout>
