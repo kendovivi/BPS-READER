@@ -1,58 +1,54 @@
+
 package bps.android.reader;
 
-import java.util.ArrayList;
+import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import bps.android.reader.fragment.BookDetailsFragment;
 
 import com.example.bps_reader.R;
 
-import bps.android.reader.book.BookInfo;
-import bps.android.reader.fragment.BookDetailsFragment;
-import android.app.Activity;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.app.FragmentManager;
-
-
-public class ShowBookDetailsActivity extends Activity {
+public class ShowBookDetailsActivity extends Activity implements OnClickListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mCurrentBookId = getIntent().getIntExtra("bookId", 0);
+        
         setContentView(R.layout.bookdetails_vertical);
         BookDetailsFragment bdf = new BookDetailsFragment();
         bdf.setArguments(getIntent().getExtras());
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
-        ft.add(android.R.id.content, bdf);
+        ft.add(R.id.detailsv, bdf);
         ft.commit();
+        
+        mBtn_read = findViewById(R.id.btn_read);
+        mBtn_read.setOnClickListener(this);
+        
     }
     
+    private View mBtn_read;
     
-    private ArrayList<BookInfo> mBookList = new ArrayList<BookInfo>() {
-        {
+    private int mCurrentBookId;
 
-            add(new BookInfo(1, "colorful", "matsu", "publisher", "20010608",
-                    "colorful", "colorful", ""));
-            add(new BookInfo(2, "illustrator_rules", "Michale", "publisher", "20010809",
-                    "illustrator_rules", "illustrator_rules", ""));
-            add(new BookInfo(3, "praysrelease", "Riri", "publisher", "20010809",
-                    "praysrelease", "praysrelease", ""));
-            add(new BookInfo(4, "servertech", "Square Enix", "publisher", "20010809",
-                    "servertech", "servertech", ""));
-            add(new BookInfo(5, "androidforbeginners", "nippo", "publisher", "20010809",
-                    "androidforbeginners", "androidforbeginners", ""));
-            add(new BookInfo(6, "jenkinsforbeginners", "nippo", "publisher", "20010809",
-                    "jenkinsforbeginners", "jenkinsforbeginners", ""));
-            add(new BookInfo(7, "fireworks_cs4", "nippo", "publisher", "20010809",
-                    "fireworks_cs4", "fireworks_cs4", ""));
-            add(new BookInfo(8, "book_rails", "nippo", "publisher", "20010809",
-                    "book_rails", "book_rails", ""));
-            add(new BookInfo(9, "no pic book", "nippo", "publisher", "20010809",
-                    "no pic book", "no pic book", ""));
-            add(new BookInfo(10, "javarestful", "nippo", "publisher", "20010809",
-                    "javarestful", "javarestful", ""));
-            add(new BookInfo(11, "javascript5th", "nippo", "publisher", "20010809",
-                    "javascript5th", "javascript5th", ""));
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent();
+        switch (v.getId()){
+            case R.id.btn_read:
+                intent.setClass(this, ShowArticle.class);
+                intent.putExtra("bookId", mCurrentBookId);
+                startActivity(intent);
+                break;
         }
-    };
+        
+    }
+
+   
     
 }

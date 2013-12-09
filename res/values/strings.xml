@@ -4,5 +4,7 @@
     <string name="app_name">BPS-Reader</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    <string name="read">読む</string>
+    <string name="bookcover">Book Cover</string>
 
 </resources>

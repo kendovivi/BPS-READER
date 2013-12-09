@@ -4,102 +4,111 @@
     <book>
         <bookid>1</bookid>
         <bookname>colorful</bookname>
+        <bookauthor>author1</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>colorful</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 1.</bookarticle>
     </book>
     
     <book>
         <bookid>2</bookid>
         <bookname>illustrator_rules</bookname>
+        <bookauthor>author2</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>illustrator_rules</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 2.</bookarticle>
     </book>
     
     <book>
         <bookid>3</bookid>
         <bookname>praysrelease</bookname>
+        <bookauthor>author3</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>praysrelease</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 3.</bookarticle>
     </book>
     
     <book>
         <bookid>4</bookid>
         <bookname>servertech</bookname>
+        <bookauthor>author4</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>servertech</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 4.</bookarticle>
     </book>
     
     <book>
         <bookid>5</bookid>
         <bookname>androidforbeginners</bookname>
+        <bookauthor>author5</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>androidforbeginners</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 5.</bookarticle>
     </book>
     
     <book>
         <bookid>6</bookid>
         <bookname>jenkinsforbeginners</bookname>
+        <bookauthor>author6</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>jenkinsforbeginners</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 6.</bookarticle>
     </book>
     
     <book>
         <bookid>7</bookid>
         <bookname>fireworks_cs4</bookname>
+        <bookauthor>author7</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>fireworks_cs4</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 7.</bookarticle>
     </book>
     
     <book>
         <bookid>8</bookid>
         <bookname>book_rails</bookname>
+        <bookauthor>author8</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>book_rails</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 8.</bookarticle>
     </book>
     
     <book>
         <bookid>9</bookid>
         <bookname>no pic book</bookname>
+        <bookauthor>author9</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>no pic book</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 9.</bookarticle>
     </book>
     
     <book>
         <bookid>10</bookid>
         <bookname>javarestful</bookname>
+        <bookauthor>author10</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>javarestful</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 10.</bookarticle>
     </book>
     
     <book>
         <bookid>11</bookid>
         <bookname>javascript5th</bookname>
+        <bookauthor>author11</bookauthor>
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>javascript5th</bookurlh>
-        <booktext></booktext>
+        <bookarticle>this is the article of book 11.</bookarticle>
     </book>
-    
-
    
 </books>

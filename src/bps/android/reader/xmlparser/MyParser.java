@@ -31,14 +31,16 @@ public class MyParser {
                             currentBook.setmId(Integer.parseInt(parser.nextText()));
                         } else if (name.equalsIgnoreCase("bookname")) {
                             currentBook.setmName(parser.nextText());
+                        } else if (name.equalsIgnoreCase("bookauthor")){
+                            currentBook.setmAuthor(parser.nextText());
                         } else if (name.equalsIgnoreCase("bookpublisher")) {
                             currentBook.setmPublisher(parser.nextText());
                         } else if (name.equalsIgnoreCase("bookptime")) {
                             currentBook.setmPtime(parser.nextText());
                         } else if (name.equalsIgnoreCase("bookurlh")) {
                             currentBook.setmImgURLH(parser.nextText());
-                        } else if (name.equalsIgnoreCase("booktext")) {
-                            currentBook.setmText(parser.nextText());
+                        } else if (name.equalsIgnoreCase("bookarticle")) {
+                            currentBook.setmArticle(parser.nextText());
                         }
                     }
                     break;

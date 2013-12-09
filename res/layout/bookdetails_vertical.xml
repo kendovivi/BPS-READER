@@ -62,7 +62,7 @@
             
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/btn_read"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -75,8 +75,8 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/button1"
-                android:layout_toRightOf="@+id/button1"
+                android:layout_alignBottom="@id/btn_read"
+                android:layout_toRightOf="@id/btn_read"
                 android:text="ほしいリストに入れる" />
 
 

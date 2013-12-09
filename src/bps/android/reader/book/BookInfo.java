@@ -1,5 +1,6 @@
 package bps.android.reader.book;
 
+
 public class BookInfo {
     
     public String getmPtime() {
@@ -14,7 +15,7 @@ public class BookInfo {
     private String mAuthor;
     private String mPublisher;
     private String mPtime;
-    private String mText;
+    private String mArticle;
     private String mImgURLH;
     private String mImgURLV;
     
@@ -23,7 +24,7 @@ public class BookInfo {
         
     }
     
-    public BookInfo(int mId, String mName, String mAuthor, String mPublisher, String mPtime, String mText,
+    public BookInfo(int mId, String mName, String mAuthor, String mPublisher, String mPtime, String mArticle,
             String mImgURLH, String mImgURLV) {
         super();
         this.mId = mId;
@@ -31,10 +32,12 @@ public class BookInfo {
         this.mAuthor = mAuthor;
         this.mPublisher = mPublisher;
         this.mPtime = mPtime;
-        this.mText = mText;
+        this.mArticle = mArticle;
         this.mImgURLH = mImgURLH;
         this.mImgURLV = mImgURLV;
     }
+    
+   
     
     public int getmId() {
         return mId;
@@ -60,11 +63,11 @@ public class BookInfo {
     public void setmPublisher(String mPublisher) {
         this.mPublisher = mPublisher;
     }
-    public String getmText() {
-        return mText;
+    public String getmArticle() {
+        return mArticle;
     }
-    public void setmText(String mText) {
-        this.mText = mText;
+    public void setmArticle(String mArticle) {
+        this.mArticle = mArticle;
     }
     public String getmImgURLH() {
         return mImgURLH;
