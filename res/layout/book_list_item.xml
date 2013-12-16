@@ -2,52 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center" >
-    <!-- 
-    <TextView
-        android:id="@+id/bookId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    android:gravity="center"
+    android:orientation="vertical" >
+    
+    <ImageView
+        android:id="@+id/bookCover"
+        android:layout_width="100dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="15dp" />
     
     <TextView
         android:id="@+id/bookName"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/bookCover"
+        android:layout_toRightOf="@id/bookCover"
+        android:layout_marginLeft="10dp"
+        android:textSize="25sp" />
+
     <TextView
-        android:id="@+id/bookAuthor" 
+        android:id="@+id/bookAuthor"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/bookName"
+        android:layout_below="@id/bookName" />
+
     <TextView
         android:id="@+id/bookPublisher"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/bookName"
+        android:layout_below="@id/bookAuthor" />
+
     <TextView
         android:id="@+id/bookPTime"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    
-    <TextView
-        android:id="@+id/bookText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    -->
-    <ImageView
-        android:id="@+id/bookCover"
-        android:layout_width="100dp"
-        android:layout_height="138dp"
-        android:paddingTop="25dp"  />
-    
-    <TextView
-        android:id="@+id/bookTitle"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bookCover"
-        android:layout_gravity="center" />
-        
+        android:layout_alignLeft="@id/bookName"
+        android:layout_below="@id/bookPublisher" />
 
     
+
 </RelativeLayout>

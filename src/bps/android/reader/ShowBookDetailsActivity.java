@@ -54,7 +54,8 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         Intent intent = new Intent();
         switch (v.getId()){
             case R.id.btn_read:
-                intent.setClass(this, FxlEpubViewerActivity.class);
+                //intent.setClass(this, FxlEpubViewerActivity.class);
+                intent.setClass(this, SampleDialogShelfActivity.class);
                 intent.putExtra("bookId", mCurrentBookId);
                 intent.putExtra(INTENT_KEY_EPUB_CONTENTS, mBookList.get(mCurrentBookId));
                 startActivity(intent);

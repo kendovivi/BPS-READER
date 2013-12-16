@@ -12,12 +12,14 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.Toast;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
 import bps.android.reader.fragment.BookDetailsFragment;
@@ -44,6 +46,19 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         return true;
     }
 
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent = new Intent();
+        switch (item.getItemId()) {
+            case R.id.menu_add:
+                intent.setClass(this, ChangeListGridActivity.class);
+                this.startActivity(intent);
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -57,7 +72,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
      */
     void setGridView(int gridViewId) {
         mGrid = (GridView)this.findViewById(gridViewId);
-        mAdapter = new BookAdapter(this, gridViewId, mBookList);
+        mAdapter = new BookAdapter(this, gridViewId, mBookList, BookAdapter.GRID);
         mGrid.setAdapter(mAdapter);
         mGrid.setOnItemClickListener(new OnItemClickListener() {
             @Override
