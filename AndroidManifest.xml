@@ -29,8 +29,8 @@
             android:label="BookDetailsActivity"
             android:parentActivityName="bps.android.reader.BookShelfActivity" >
         </activity>
-        <activity android:name="bps.android.reader.ShowArticle" >
-        </activity>
+        <activity android:name="bps.android.reader.ShowArticle" ></activity>
+        <activity android:name="jp.bpsinc.android.viewer.epub.fxl.activity.FxlEpubViewerActivity" ></activity>
     </application>
 
 </manifest>

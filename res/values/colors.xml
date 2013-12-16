@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- 色設定 -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="red">#FF0000</color>
+    <color name="light_gray">#EEEEEE</color>
+    <color name="dark_gray">#555555</color>
+
+    <color name="epub_viewer_menu_bg_color">#C0000000</color>
+</resources>

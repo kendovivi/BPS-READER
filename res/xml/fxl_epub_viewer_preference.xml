@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <ListPreference
+        android:key="@string/pre_key_fxl_epub_viewer_orientation"
+        android:title="@string/pre_title_fxl_epub_viewer_orientation"
+        android:defaultValue="@string/pre_default_fxl_epub_viewer_orientation"
+        android:entries="@array/pre_entrys_fxl_epub_viewer_orientation"
+        android:entryValues="@array/pre_entryValues_fxl_epub_viewer_orientation" />
+    <CheckBoxPreference
+        android:key="@string/pre_key_fxl_epub_viewer_spread"
+        android:title="@string/pre_title_fxl_epub_viewer_spread"
+        android:defaultValue="@bool/pre_default_fxl_epub_viewer_spread"
+        android:summaryOn="@string/pre_summary_on_fxl_epub_viewer_spread"
+        android:summaryOff="@string/pre_summary_off_fxl_epub_viewer_spread" />
+    <ListPreference
+        android:key="@string/pre_key_fxl_epub_viewer_animation"
+        android:title="@string/pre_title_fxl_epub_viewer_animation"
+        android:defaultValue="@string/pre_default_fxl_epub_viewer_animation"
+        android:entries="@array/pre_entrys_fxl_epub_viewer_animation"
+        android:entryValues="@array/pre_entryValues_fxl_epub_viewer_animation" />
+    <jp.bpsinc.android.viewer.preference.BrightnessPreference
+        android:key="@string/pre_key_fxl_epub_viewer_brightness"
+        android:title="@string/pre_title_fxl_epub_viewer_brightness"
+        android:defaultValue="@integer/pre_default_fxl_epub_viewer_brightness" />
+
+</PreferenceScreen>

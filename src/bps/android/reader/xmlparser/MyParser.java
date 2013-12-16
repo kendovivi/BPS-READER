@@ -41,6 +41,8 @@ public class MyParser {
                             currentBook.setmImgURLH(parser.nextText());
                         } else if (name.equalsIgnoreCase("bookarticle")) {
                             currentBook.setmArticle(parser.nextText());
+                        } else if (name.equalsIgnoreCase("bookepubpath")) {
+                            currentBook.setmEpubPath(parser.nextText());
                         }
                     }
                     break;

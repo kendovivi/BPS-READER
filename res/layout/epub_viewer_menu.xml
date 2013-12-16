@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/epub_viewer_menu_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!-- ヘッダ -->
+    <LinearLayout
+        android:id="@+id/epub_viewer_header_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_gravity="top"
+        android:orientation="horizontal"
+        android:background="@color/epub_viewer_menu_bg_color" >
+        <!-- 本棚へ戻るボタン -->
+        <ImageButton
+            android:id="@+id/epub_viewer_header_back_shelf_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/epub_viewer_header_back_shelf_button_text"
+            android:background="@drawable/epub_viewer_header_back_shelf_button" />
+        <!-- 書誌情報 -->
+        <LinearLayout
+            android:id="@+id/epub_viewer_header_bibliography_layout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+            <TextView
+                android:id="@+id/epub_viewer_header_bibliography_book_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:text=""
+                android:textColor="@color/white" />
+            <TextView
+                android:id="@+id/epub_viewer_header_bibliography_book_auther"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:scrollHorizontally="true"
+                android:ellipsize="end"
+                android:text=""
+                android:textColor="@color/white" />
+        </LinearLayout>
+        <!-- 書誌情報表示位置調節用のダミーボタン -->
+        <ImageButton
+            android:id="@+id/epub_viewer_header_back_shelf_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/epub_viewer_header_back_shelf_button_text"
+            android:drawable="@drawable/epub_viewer_header_back_shelf_button" />
+    </LinearLayout>
+
+    <!-- フッタ -->
+    <LinearLayout
+        android:id="@+id/epub_viewer_footer_menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="vertical" >
+
+        <!-- ページシークバー -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:orientation="horizontal"
+            android:background="@color/epub_viewer_menu_bg_color" >
+            <SeekBar
+                android:id="@+id/epub_viewer_footer_seek_bar"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/epub_viewer_footer_seek_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="right"
+                android:layout_marginRight="10dp"
+                android:text=""
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <!-- 各種機能ボタン -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/epub_viewer_menu_bg_color" >
+            <!-- 設定ボタン -->
+            <ImageButton
+                android:id="@+id/epub_viewer_footer_setting_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/epub_viewer_footer_setting_button_text"
+                android:background="@drawable/epub_viewer_footer_setting_button" />
+            <!-- しおりボタン -->
+            <ImageButton
+                android:id="@+id/epub_viewer_footer_bookmark_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:contentDescription="@string/epub_viewer_footer_bookmark_button_text"
+                android:background="@drawable/epub_viewer_footer_bookmark_button" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

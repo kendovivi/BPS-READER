@@ -6,5 +6,93 @@
     <string name="hello_world">Hello world!</string>
     <string name="read">読む</string>
     <string name="bookcover">Book Cover</string>
+    <string name="shelf_action_settings_text">Settings</string>
+    <string name="shelf_action_viewmode_text">表示モード切替</string>
+    <string name="epub_viewer_dlg_err_title">エラー</string>
+    <string name="epub_viewer_dlg_btn_positive">OK</string>
+    <string name="epub_viewer_dlg_err_mes_browse">閲覧時に問題が発生しました。（%d）\nサポートにお問い合わせください。</string>
+    <string name="epub_viewer_dlg_err_mes_memory">メモリが不足しています。（%d）\n他アプリを終了して再度お試しください。</string>
+    <string name="epub_viewer_dlg_err_mes_contents">コンテンツを開くことができません。（%d）\nサポートにお問い合わせください。</string>
+    <string name="epub_viewer_dlg_err_mes_unexpected">エラーが発生しました。（%d）\nサポートにお問い合わせください。</string>
+    <string name="epub_viewer_header_back_shelf_button_text">本棚</string>
+    <string name="epub_viewer_footer_setting_button_text">設定</string>
+    <string name="epub_viewer_footer_bookmark_button_text">しおり</string>
+    <string name="epub_viewer_bookmark_head_text">しおり</string>
+    <string name="epub_viewer_bookmark_null_text"></string>
+    <string name="epub_viewer_bookmark_add_text">しおりを付ける</string>
+    <string name="epub_viewer_bookmark_row_edit_text">編集</string>
+    <string name="epub_viewer_bookmark_edit_dialog_title">ラベル編集</string>
+    <string name="epub_viewer_bookmark_edit_dialog_ok">OK</string>
+    <string name="epub_viewer_bookmark_edit_dialog_delete">削除</string>
+    <string name="brightness_checkbox_text">端末の設定に従う</string>
+    <string name="brightness_minus">－</string>
+    <string name="brightness_plus">＋</string>
+    <string name="pre_key_fxl_epub_viewer_orientation">pre_key_fxl_epub_viewer_orientation</string>
+    <string name="pre_key_fxl_epub_viewer_spread">pre_key_fxl_epub_viewer_spread</string>
+    <string name="pre_key_fxl_epub_viewer_animation">pre_key_fxl_epub_viewer_animation</string>
+    <string name="pre_key_fxl_epub_viewer_brightness">pre_key_fxl_epub_viewer_brightness</string>
+    <string name="pre_key_omf_epub_viewer_orientation">pre_key_omf_epub_viewer_orientation</string>
+    <string name="pre_key_omf_epub_viewer_animation">pre_key_omf_epub_viewer_animation</string>
+    <string name="pre_key_omf_epub_viewer_brightness">pre_key_omf_epub_viewer_brightness</string>
+    <string name="pre_title_fxl_epub_viewer_orientation">回転設定</string>
+    <string name="pre_title_fxl_epub_viewer_spread">見開き表示</string>
+    <string name="pre_title_fxl_epub_viewer_animation">ページめくりアニメーション</string>
+    <string name="pre_title_fxl_epub_viewer_brightness">画面の明るさ</string>
+    <string name="pre_title_omf_epub_viewer_orientation">回転設定</string>
+    <string name="pre_title_omf_epub_viewer_animation">ページめくりアニメーション</string>
+    <string name="pre_title_omf_epub_viewer_brightness">画面の明るさ</string>
+
+    <string-array name="pre_entrys_fxl_epub_viewer_orientation">
+        <item>端末の設定に従う</item>
+        <item>縦固定</item>
+        <item>横固定</item>
+    </string-array>
+    <string-array name="pre_entrys_fxl_epub_viewer_animation">
+        <item>なし</item>
+        <item>スライド</item>
+    </string-array>
+    <string-array name="pre_entryValues_fxl_epub_viewer_orientation">
+        <item>SCREEN_ORIENTATION_SENSOR</item>
+        <item>SCREEN_ORIENTATION_PORTRAIT</item>
+        <item>SCREEN_ORIENTATION_LANDSCAPE</item>
+    </string-array>
+    <string-array name="pre_entryValues_fxl_epub_viewer_animation">
+        <item>NONE</item>
+        <item>SLIDE</item>
+    </string-array>
+    <string-array name="pre_entrys_omf_epub_viewer_orientation">
+        <item>端末の設定に従う</item>
+        <item>縦固定</item>
+        <item>横固定</item>
+    </string-array>
+    <string-array name="pre_entrys_omf_epub_viewer_animation">
+        <item>なし</item>
+        <item>スライド</item>
+    </string-array>
+    <string-array name="pre_entryValues_omf_epub_viewer_orientation">
+        <item>SCREEN_ORIENTATION_SENSOR</item>
+        <item>SCREEN_ORIENTATION_PORTRAIT</item>
+        <item>SCREEN_ORIENTATION_LANDSCAPE</item>
+    </string-array>
+    <string-array name="pre_entryValues_omf_epub_viewer_animation">
+        <item>NONE</item>
+        <item>SLIDE</item>
+    </string-array>
+
+    <string name="pre_default_fxl_epub_viewer_orientation">SCREEN_ORIENTATION_SENSOR</string>
+
+    <bool name="pre_default_fxl_epub_viewer_spread">false</bool>
+
+    <string name="pre_default_fxl_epub_viewer_animation">SLIDE</string>
+
+    <integer name="pre_default_fxl_epub_viewer_brightness">100</integer>
+
+    <string name="pre_default_omf_epub_viewer_orientation">SCREEN_ORIENTATION_SENSOR</string>
+    <string name="pre_default_omf_epub_viewer_animation">SLIDE</string>
+
+    <integer name="pre_default_omf_epub_viewer_brightness">100</integer>
+
+    <string name="pre_summary_on_fxl_epub_viewer_spread">横画面の場合のみ有効</string>
+    <string name="pre_summary_off_fxl_epub_viewer_spread">横画面の場合のみ有効</string>
 
 </resources>

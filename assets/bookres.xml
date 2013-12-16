@@ -9,6 +9,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>colorful</bookurlh>
         <bookarticle>this is the article of book 1.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -19,6 +20,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>illustrator_rules</bookurlh>
         <bookarticle>this is the article of book 2.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -29,6 +31,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>praysrelease</bookurlh>
         <bookarticle>this is the article of book 3.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -39,6 +42,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>servertech</bookurlh>
         <bookarticle>this is the article of book 4.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -49,6 +53,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>androidforbeginners</bookurlh>
         <bookarticle>this is the article of book 5.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -59,6 +64,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>jenkinsforbeginners</bookurlh>
         <bookarticle>this is the article of book 6.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -69,6 +75,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>fireworks_cs4</bookurlh>
         <bookarticle>this is the article of book 7.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -78,7 +85,7 @@
         <bookpublisher>publiser</bookpublisher>
         <bookptime>20010101</bookptime>
         <bookurlh>book_rails</bookurlh>
-        <bookarticle>this is the article of book 8.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -89,6 +96,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>no pic book</bookurlh>
         <bookarticle>this is the article of book 9.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -99,6 +107,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>javarestful</bookurlh>
         <bookarticle>this is the article of book 10.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
     
     <book>
@@ -109,6 +118,7 @@
         <bookptime>20010101</bookptime>
         <bookurlh>javascript5th</bookurlh>
         <bookarticle>this is the article of book 11.</bookarticle>
+        <bookepubpath>storage/sdcard0/test-0217-rtl.epub</bookepubpath>
     </book>
    
 </books>

@@ -1,8 +1,11 @@
 package bps.android.reader.book;
 
+import java.io.Serializable;
 
-public class BookInfo {
-    
+
+@SuppressWarnings("serial")
+public class BookInfo implements Serializable{
+
     public String getmPtime() {
         return mPtime;
     }
@@ -18,8 +21,16 @@ public class BookInfo {
     private String mArticle;
     private String mImgURLH;
     private String mImgURLV;
+    private String mEpubPath;
     
-    
+    public String getmEpubPath() {
+        return mEpubPath;
+    }
+
+    public void setmEpubPath(String mEpubPath) {
+        this.mEpubPath = mEpubPath;
+    }
+
     public BookInfo(){
         
     }
