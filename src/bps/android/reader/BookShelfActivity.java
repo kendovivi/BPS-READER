@@ -3,6 +3,7 @@ package bps.android.reader;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -32,13 +34,13 @@ public class BookShelfActivity extends Activity implements OnClickListener {
             savedInstanceState.getInt("curPosition", 0);
         }
         initVar();
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
         return true;
     }
 
@@ -70,6 +72,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
      * 
      * @param position
      */
+    @SuppressLint("NewApi")
     void showFragment(int position) {
         mPosition = position;
         // if horizontal, show details in the right frame
@@ -140,6 +143,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
                 Intent intent = new Intent();
                 intent.setClass(this, ShowArticle.class);
                 intent.putExtra("bookId", mPosition);
+                intent.putExtra("pageNum", 0);
                 startActivity(intent);
                 break;
         }
