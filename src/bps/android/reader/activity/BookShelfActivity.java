@@ -1,5 +1,5 @@
 
-package bps.android.reader;
+package bps.android.reader.activity;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -7,7 +7,6 @@ import java.util.zip.ZipException;
 
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -24,7 +23,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
 import bps.android.reader.fragment.BookDetailsFragment;
@@ -40,22 +38,8 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         if (savedInstanceState != null) {
             savedInstanceState.getInt("curPosition", 0);
         }
-        
-        try {
-            initVar();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ZipException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (EpubOtherException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (EpubParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        initVar();
+
     }
 
     @Override
@@ -127,7 +111,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
             // if vertical, use showBookDetailsActivity to show book details
         } else {
             Intent intent = new Intent();
-            intent.setClass(this, bps.android.reader.ShowBookDetailsActivity.class);
+            intent.setClass(this, bps.android.reader.activity.ShowBookDetailsActivity.class);
             intent.putExtra("bookId", position);
             startActivity(intent);
         }
@@ -135,12 +119,13 @@ public class BookShelfActivity extends Activity implements OnClickListener {
 
     /**
      * initialize variables
-     * @throws EpubParseException 
-     * @throws EpubOtherException 
-     * @throws ZipException 
-     * @throws FileNotFoundException 
+     * 
+     * @throws EpubParseException
+     * @throws EpubOtherException
+     * @throws ZipException
+     * @throws FileNotFoundException
      */
-    private void initVar() throws FileNotFoundException, ZipException, EpubOtherException, EpubParseException {
+    private void initVar() {
 
         // portrait -> booklist_vertical, horizontal -> booklist_horizantal
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -151,17 +136,13 @@ public class BookShelfActivity extends Activity implements OnClickListener {
             mIsHorizantal = true;
             mIsVertical = false;
             setContentView(R.layout.booklist_horizantal);
-            mBtn_read = (Button)findViewById(R.id.btn_read);
-            mBtn_read.setOnClickListener(this);
+            Button btn_read = (Button)findViewById(R.id.btn_read);
+            btn_read.setOnClickListener(this);
         }
 
-        if (mBM == null) {
-            mBM = new BookManager();
-            //mBM.initBookList();
-            BookManager.getSDcardBookList();
-        }
-        mBookList = BookManager.getbookList();
-        System.out.println(mBookList);
+        mBookManager = new BookManager();
+        mBookList = mBookManager.getSDcardBookList();
+        mPosition = DEFAULT_POSITION;
         mGridViewId = mIsVertical ? R.id.booklistgridv : R.id.booklistgridh;
         setGridView(mGridViewId);
         View detailshFrame = this.findViewById(R.id.detailsxxx);
@@ -170,7 +151,6 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         if (mIsDual) {
             showFragment(mPosition);
         }
-
     }
 
     /**
@@ -181,7 +161,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         switch (v.getId()) {
             case R.id.btn_read:
                 Intent intent = new Intent();
-                intent.setClass(this, ShowArticle.class);
+                intent.setClass(this, ShowArticleActivity.class);
                 intent.putExtra("bookId", mPosition);
                 intent.putExtra("pageNum", 0);
                 startActivity(intent);
@@ -190,9 +170,9 @@ public class BookShelfActivity extends Activity implements OnClickListener {
 
     }
 
-    private BookManager mBM;
+    private BookManager mBookManager;
 
-    private int mPosition = 0;
+    private int mPosition;
 
     private boolean mIsHorizantal;
 
@@ -207,6 +187,6 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     private GridView mGrid;
 
     private BookAdapter mAdapter;
-
-    private Button mBtn_read;
+    
+    private static final int DEFAULT_POSITION = 0;
 }

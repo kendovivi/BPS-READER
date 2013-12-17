@@ -1,3 +1,4 @@
+
 package bps.android.reader.fragment;
 
 import java.io.FileNotFoundException;
@@ -7,7 +8,6 @@ import java.util.zip.ZipException;
 
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
-
 import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,9 +23,11 @@ import bps.android.reader.book.BookManager;
 import com.example.bps_reader.R;
 
 public class BookDetailsFragment extends Fragment {
-    
-    private ArrayList<BookInfo> mBookList; 
-    
+
+    private ArrayList<BookInfo> mBookList;
+
+    private BookManager mBookManager;
+
     public static BookDetailsFragment newInstance(int bookId) {
         BookDetailsFragment bf = new BookDetailsFragment();
         Bundle args = new Bundle();
@@ -33,39 +35,39 @@ public class BookDetailsFragment extends Fragment {
         bf.setArguments(args);
         return bf;
     }
-    
-    public int getBookId(){
+
+    public int getBookId() {
         return getArguments().getInt("bookId");
     }
-    
-    
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBookList = BookManager.getbookList();
+        mBookManager = new BookManager();
+        mBookList = mBookManager.getSDcardBookList();
         if (container == null) {
             return null;
         }
-        
+
         TextView v = new TextView(getActivity());
-        TextView bookName = (TextView) getActivity().findViewById(R.id.bookName);
+        TextView bookName = (TextView)getActivity().findViewById(R.id.bookName);
         TextView bookAuthor = (TextView)getActivity().findViewById(R.id.bookAuthor);
         TextView bookPublisher = (TextView)getActivity().findViewById(R.id.bookPublisher);
         TextView bookPTime = (TextView)getActivity().findViewById(R.id.bookPTime);
-        TextView bookPrice = (TextView)getActivity().findViewById(R.id.bookPrice);
         ImageView bookCover = (ImageView)getActivity().findViewById(R.id.imageView1);
-        
-        int coverViewId = getResources().getIdentifier("drawable/" + mBookList.get(getBookId()).getmImgURLH(), "drawable", getActivity().getPackageName());
-        coverViewId = coverViewId == 0? R.drawable.default_book_cover : coverViewId;
+
+        int coverViewId = getResources().getIdentifier(
+                "drawable/" + mBookList.get(getBookId()).getmImgURLH(), "drawable",
+                getActivity().getPackageName());
+        coverViewId = coverViewId == 0 ? R.drawable.default_book_cover : coverViewId;
         Bitmap bookcover = BitmapFactory.decodeResource(getResources(), coverViewId);
         v.setPadding(5, 5, 5, 5);
         bookName.setText("本名　:　" + mBookList.get(getBookId()).getmName());
         bookAuthor.setText("作者　:　" + mBookList.get(getBookId()).getmAuthor());
         bookPublisher.setText("出版社　: " + mBookList.get(getBookId()).getmPublisher());
         bookPTime.setText("出版時間　: " + mBookList.get(getBookId()).getmPtime());
-        
-        
+
         try {
-            bookcover = BookManager.getBookBmp(getBookId());
+            bookcover = mBookManager.getBookBmp(getBookId());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (ZipException e) {
@@ -73,8 +75,6 @@ public class BookDetailsFragment extends Fragment {
         } catch (EpubOtherException e) {
             e.printStackTrace();
         } catch (EpubParseException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         bookCover.setImageBitmap(bookcover);

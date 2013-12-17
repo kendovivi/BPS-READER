@@ -1,5 +1,5 @@
 
-package bps.android.reader;
+package bps.android.reader.activity;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -14,28 +14,27 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import bps.android.reader.IOstream.FileManager;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
+import bps.android.reader.content.FileManager;
 
 import com.example.bps_reader.R;
 
-public class ShowArticle extends Activity implements OnClickListener {
+public class ShowArticleActivity extends Activity implements OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.article);
-        
-            init();
-        
+
+        init();
 
         try {
             getArticle(mBookId, mPageNum);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mTotalPageNum = fm.getTotalPagesNum();
+        mTotalPageNum = mFileManager.getTotalPagesNum();
         mArticleView.setText(mPageToShow);
         setPageNumView();
 
@@ -67,24 +66,10 @@ public class ShowArticle extends Activity implements OnClickListener {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
 
-    private void init() {
-        mBookId = getIntent().getIntExtra("bookId", 0);
-        mPageNum = getIntent().getIntExtra("pageNum", 0);
-        mBookList = BookManager.getbookList();
-        mBookName = mBookList.get(mBookId).getmName();
-        mArticleView = (TextView)findViewById(R.id.article);
-        mTotalPageView = (TextView)findViewById(R.id.total_page);
-        btn_next = (Button)findViewById(R.id.next_page);
-        btn_last = (Button)findViewById(R.id.last_page);
-        btn_next.setOnClickListener(this);
-        btn_last.setOnClickListener(this);
-        isFirstTime = false;
-    }
-
     private void getArticle(int bookId, int pageNum) throws UnsupportedEncodingException,
             IOException {
-        fm = new FileManager();
-        mPageToShow = fm.getTextContent(this, bookId, pageNum, mBookName);
+        mFileManager = new FileManager();
+        mPageToShow = mFileManager.getTextContent(this, bookId, pageNum, mBookName);
     }
 
     private void checkMove(int moveDirection) {
@@ -109,6 +94,19 @@ public class ShowArticle extends Activity implements OnClickListener {
         mTotalPageView.setText((mPageNum + 1) + " page in " + mTotalPageNum + " pages");
     }
 
+    private void init() {
+        mBookId = getIntent().getIntExtra("bookId", 0);
+        mPageNum = getIntent().getIntExtra("pageNum", 0);
+        mBookList = mBookManager.getBookList();
+        mBookName = mBookList.get(mBookId).getmName();
+        mArticleView = (TextView)findViewById(R.id.article);
+        mTotalPageView = (TextView)findViewById(R.id.total_page);
+        btn_next = (Button)findViewById(R.id.next_page);
+        btn_last = (Button)findViewById(R.id.last_page);
+        btn_next.setOnClickListener(this);
+        btn_last.setOnClickListener(this);
+    }
+
     private int mBookId;
 
     private String mBookName;
@@ -127,7 +125,9 @@ public class ShowArticle extends Activity implements OnClickListener {
 
     private ArrayList<BookInfo> mBookList;
 
-    private FileManager fm;
+    private BookManager mBookManager;
+
+    private FileManager mFileManager;
 
     private String mPageToShow;
 
@@ -135,5 +135,4 @@ public class ShowArticle extends Activity implements OnClickListener {
 
     private static final int LAST = 2;
 
-    private boolean isFirstTime = true;
 }

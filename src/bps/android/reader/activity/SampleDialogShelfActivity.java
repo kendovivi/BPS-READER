@@ -1,5 +1,5 @@
 
-package bps.android.reader;
+package bps.android.reader.activity;
 
 import jp.bpsinc.android.viewer.epub.activity.EpubViewerActivity;
 import android.app.Activity;
@@ -26,7 +26,7 @@ public class SampleDialogShelfActivity extends Activity {
             }
         });
         selectViewerBuilder.setSingleChoiceItems(new CharSequence[] {
-                "FXLビューア", "OMFビューア", "TXTビューア"
+                "FXLビューア", "OMFビューア"
         }, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -37,7 +37,7 @@ public class SampleDialogShelfActivity extends Activity {
                     mIntent = new Intent(mActivity,
                             jp.bpsinc.android.viewer.epub.omf.activity.OmfEpubViewerActivity.class);
                 } else if (which == 2) {
-                    mIntent = new Intent(mActivity, bps.android.reader.ShowArticle.class);
+                    mIntent = new Intent(mActivity, bps.android.reader.activity.ShowArticleActivity.class);
                 }
                 mIntent.putExtra("bookId", getIntent().getIntExtra("bookId", 0));
                 mIntent.putExtra(EpubViewerActivity.INTENT_KEY_EPUB_CONTENTS, getIntent()

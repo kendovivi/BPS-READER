@@ -1,5 +1,5 @@
 
-package bps.android.reader;
+package bps.android.reader.activity;
 
 import java.util.ArrayList;
 
@@ -21,8 +21,9 @@ public class ChangeListGridActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.booklist_listview);     
-        mBookList = BookManager.getbookList();
+        setContentView(R.layout.booklist_listview); 
+        mBookManager = new BookManager();
+        mBookList = mBookManager.getSDcardBookList();
         setListView(R.id.book_listview);
 
     }
@@ -35,7 +36,7 @@ public class ChangeListGridActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), bps.android.reader.ShowBookDetailsActivity.class);
+                intent.setClass(getApplicationContext(), bps.android.reader.activity.ShowBookDetailsActivity.class);
                 intent.putExtra("bookId", position);
                 startActivity(intent);
             }
@@ -46,4 +47,6 @@ public class ChangeListGridActivity extends Activity {
     private ListView mListView;
 
     private ArrayList<BookInfo> mBookList;
+    
+    private BookManager mBookManager;
 }

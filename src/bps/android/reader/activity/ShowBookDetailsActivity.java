@@ -1,9 +1,9 @@
 
-package bps.android.reader;
+package bps.android.reader.activity;
 
 import java.util.ArrayList;
 
-import jp.bpsinc.android.viewer.epub.fxl.activity.FxlEpubViewerActivity;
+import jp.bpsinc.android.viewer.epub.activity.EpubViewerActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
 import bps.android.reader.fragment.BookDetailsFragment;
@@ -25,7 +26,12 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCurrentBookId = getIntent().getIntExtra("bookId", 0);
-        
+        mBookManager = new BookManager();
+        try {
+            mBookList = mBookManager.getSDcardBookList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.bookdetails_vertical);
         BookDetailsFragment bdf = new BookDetailsFragment();
         bdf.setArguments(getIntent().getExtras());
@@ -33,36 +39,35 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         FragmentTransaction ft = manager.beginTransaction();
         ft.add(R.id.detailsv, bdf);
         ft.commit();
+
+        btn_read = (Button)findViewById(R.id.btn_read);
+        btn_read.setOnClickListener(this);
         
-        mBtn_read = findViewById(R.id.btn_read);
-        mBtn_read.setOnClickListener(this); 
-        mBookList = BookManager.getbookList();
-        
+
     }
-    
-    private View mBtn_read;
-    
-    private int mCurrentBookId;
-    
-    private ArrayList<BookInfo> mBookList;
-    
-    public static final String INTENT_KEY_EPUB_CONTENTS = "jp.bpsinc.android.viewer.epub.activity.INTENT_KEY_EPUB_CONTENTS";
 
     @Override
     public void onClick(View v) {
         Intent intent = new Intent();
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_read:
-                //intent.setClass(this, FxlEpubViewerActivity.class);
+                // intent.setClass(this, FxlEpubViewerActivity.class);
                 intent.setClass(this, SampleDialogShelfActivity.class);
                 intent.putExtra("bookId", mCurrentBookId);
-                intent.putExtra(INTENT_KEY_EPUB_CONTENTS, mBookList.get(mCurrentBookId));
+                intent.putExtra(EpubViewerActivity.INTENT_KEY_EPUB_CONTENTS,
+                        mBookList.get(mCurrentBookId));
                 startActivity(intent);
                 break;
         }
-        
+
     }
 
-   
-    
+    private Button btn_read;
+
+    private BookManager mBookManager;
+
+    private int mCurrentBookId;
+
+    private ArrayList<BookInfo> mBookList;
+
 }

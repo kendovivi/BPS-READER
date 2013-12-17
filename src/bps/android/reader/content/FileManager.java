@@ -1,5 +1,5 @@
 
-package bps.android.reader.IOstream;
+package bps.android.reader.content;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -8,16 +8,11 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 
 public class FileManager {
 
-    private ArrayList<String> mPageList;
-    private int mTotalPages;
-    private int mByte;
-
-    public String getTextContent(Context context, int bookId, int pageId, String bookName) throws UnsupportedEncodingException,
-            IOException {
+    public String getTextContent(Context context, int bookId, int pageId, String bookName)
+            throws UnsupportedEncodingException, IOException {
         mByte = 550;
         mPageList = new ArrayList<String>();
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
@@ -33,11 +28,17 @@ public class FileManager {
         }
         mTotalPages = mPageList.size();
         return mPageList.get(pageId);
-        //Log.d("bps-reader", pageList.size() + "");
+        // Log.d("bps-reader", pageList.size() + "");
     }
-    
-    public int getTotalPagesNum(){
+
+    public int getTotalPagesNum() {
         return this.mTotalPages;
     }
+
+    private ArrayList<String> mPageList;
+
+    private int mTotalPages;
+
+    private int mByte;
 
 }

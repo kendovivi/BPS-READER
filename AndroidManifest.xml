@@ -16,7 +16,7 @@
         android:configChanges="keyboardHidden|orientation"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="bps.android.reader.BookShelfActivity"
+            android:name="bps.android.reader.activity.BookShelfActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,15 +25,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="bps.android.reader.ShowBookDetailsActivity"
+            android:name="bps.android.reader.activity.ShowBookDetailsActivity"
             android:label="BookDetailsActivity"
-            android:parentActivityName="bps.android.reader.BookShelfActivity" >
+            android:parentActivityName="bps.android.reader.activity.BookShelfActivity" >
         </activity>
-        <activity android:name="bps.android.reader.ShowArticle" ></activity>
-        <activity android:name="bps.android.reader.ChangeListGridActivity" ></activity>
+        <activity android:name="bps.android.reader.activity.ShowArticleActivity" ></activity>
+        <activity android:name="bps.android.reader.activity.ChangeListGridActivity" ></activity>
         <activity android:name="jp.bpsinc.android.viewer.epub.fxl.activity.FxlEpubViewerActivity" ></activity>
         <activity android:name="jp.bpsinc.android.viewer.epub.omf.activity.OmfEpubViewerActivity" ></activity>
-        <activity android:name="bps.android.reader.SampleDialogShelfActivity" ></activity>
+        <activity android:name="bps.android.reader.activity.SampleDialogShelfActivity" ></activity>
     </application>
 
 </manifest>

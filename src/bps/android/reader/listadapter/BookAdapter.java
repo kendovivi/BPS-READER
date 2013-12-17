@@ -26,32 +26,12 @@ import com.example.bps_reader.R;
 
 public class BookAdapter extends ArrayAdapter<BookInfo> {
 
-    private ArrayList<BookInfo> entries;
-
-    private Activity activity;
-
-    private Bitmap bookCover;
-
-    private Context context;
-
-    private String bookCoverPath;
-
-    private int coverViewId;
-
-    private int defaultCoverViewId = R.drawable.default_book_cover;
-
-    private int count;
-
-    private int mType;
-
-    public static final int LIST = 1;
-
-    public static final int GRID = 2;
+    
 
     public BookAdapter(Activity a, int textViewResourceId, ArrayList<BookInfo> entries, int type) {
         super(a, textViewResourceId, entries);
         this.activity = a;
-        this.entries = entries;
+        this.mEntries = entries;
         this.mType = type;
     }
 
@@ -69,6 +49,7 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        mBookManager = new BookManager();
         View v = convertView;
         ViewHolder holder;
         if (v == null) {
@@ -89,33 +70,26 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         final BookInfo book = getItem(position);
         if (book != null) {
             try {
-                bookCover = BookManager.getBookBmp(position);
+                mBookCover = mBookManager.getBookBmp(position);
                 
-                if (bookCover == null) {
+                if (mBookCover == null) {
 
                     coverViewId = activity.getResources().getIdentifier(
                             "drawable/" + book.getmImgURLH(), "drawable", activity.getPackageName());
                     // coverViewId = coverViewId == 0 ? defaultCoverViewId :
                     // coverViewId;
-                    bookCover = BitmapFactory.decodeResource(activity.getResources(), coverViewId);
+                    mBookCover = BitmapFactory.decodeResource(activity.getResources(), coverViewId);
                 }
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (ZipException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (EpubOtherException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (EpubParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            holder.bookCover.setImageBitmap(bookCover);
+            holder.bookCover.setImageBitmap(mBookCover);
             if (mType == LIST) {
                 holder.bookName.setText("【" + book.getmName() + "】");
                 holder.bookAuthor.setText("　本名:　" + book.getmAuthor());
@@ -125,5 +99,23 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         }
         return v;
     }
+    
+    private Activity activity;
+
+    private Bitmap mBookCover;
+
+    ArrayList<BookInfo> mEntries;
+
+    private int coverViewId;
+
+    //private int defaultCoverViewId = R.drawable.default_book_cover;
+
+    private int mType;
+    
+    private BookManager mBookManager;
+
+    public static final int LIST = 1;
+
+    public static final int GRID = 2;
 
 }

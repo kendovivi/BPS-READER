@@ -20,23 +20,18 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.util.Log;
 import bps.android.reader.listadapter.BookshelfEpubFile;
 import bps.android.reader.listadapter.BookshelfEpubPageAccess;
 import bps.android.reader.xmlparser.MyParser;
 
 public class BookManager {
 
-    private static ArrayList<BookInfo> mBookList;
+    private ArrayList<BookInfo> mBookList;
 
     private static final String SDCARD_PATH = Environment.getExternalStorageDirectory()
             .getAbsolutePath();
 
     public static String[] mFiles;
-
-    public static ArrayList<BookInfo> getbookList() {
-        return BookManager.mBookList;
-    }
 
     /**
      * get bookList from bookres.xml
@@ -44,7 +39,7 @@ public class BookManager {
      * @param
      * @return
      */
-    public void initBookList() {
+    public ArrayList<BookInfo> getBookList() {
         ArrayList<BookInfo> bookList = new ArrayList<BookInfo>();
         try {
             XmlPullParserFactory pullParserFactory = XmlPullParserFactory.newInstance();
@@ -59,6 +54,7 @@ public class BookManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return mBookList;
     }
 
     /**
@@ -69,8 +65,7 @@ public class BookManager {
      * @throws EpubOtherException
      * @throws EpubParseException
      */
-    public static void getSDcardBookList() throws FileNotFoundException, ZipException,
-            EpubOtherException, EpubParseException {
+    public ArrayList<BookInfo> getSDcardBookList() {
 
         mFiles = new File(SDCARD_PATH).list(new FilenameFilter() {
             @Override
@@ -83,24 +78,42 @@ public class BookManager {
         for (int i = 0; i < mFiles.length; i++) {
 
             bookInfo = new BookInfo();
-            EpubZipFile epubZipFile = new EpubZipFile(new File(SDCARD_PATH, mFiles[i]).getPath());
-            BookshelfEpubFile epubFile = new BookshelfEpubFile(epubZipFile, null);
-            bookInfo.setmName(epubFile.getTitle());
-            bookInfo.setmAuthor(epubFile.getAuthor());
-            bookInfo.setmPublisher(epubFile.getOpfMeta().getPublisher());
-            bookInfo.setmEpubPath(new File(SDCARD_PATH, mFiles[i]).getPath());
-            mBookList.add(bookInfo);
-            // Log.d("booklist size = ", epubFile.get );
+            EpubZipFile epubZipFile;
+            try {
+                epubZipFile = new EpubZipFile(new File(SDCARD_PATH, mFiles[i]).getPath());
+                BookshelfEpubFile epubFile;
+                epubFile = new BookshelfEpubFile(epubZipFile, null);
+                bookInfo.setmName(epubFile.getTitle());
+                bookInfo.setmAuthor(epubFile.getAuthor());
+                bookInfo.setmPublisher(epubFile.getOpfMeta().getPublisher());
+                bookInfo.setmEpubPath(new File(SDCARD_PATH, mFiles[i]).getPath());
+                mBookList.add(bookInfo);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (ZipException e) {
+                e.printStackTrace();
+            } catch (EpubOtherException e) {
+                e.printStackTrace();
+            } catch (EpubParseException e) {
+                e.printStackTrace();
+            }
         }
+
+        return mBookList;
     }
 
-    public static Bitmap getBookBmp(int position) throws EpubOtherException, EpubParseException, IOException {
+    public Bitmap getBookBmp(int position) throws FileNotFoundException, ZipException,
+            EpubOtherException, EpubParseException {
         Bitmap bmp;
-        EpubZipFile epubZipFile = new EpubZipFile(new File(SDCARD_PATH, mFiles[position]).getPath());
+        EpubZipFile epubZipFile;
+
+        epubZipFile = new EpubZipFile(new File(SDCARD_PATH, mFiles[position]).getPath());
         BookshelfEpubFile epubFile = new BookshelfEpubFile(epubZipFile, null);
         BookshelfEpubPageAccess pageaccess = new BookshelfEpubPageAccess(epubZipFile, epubFile);
-        InputStream is =  pageaccess.getInputStream(epubFile.getCoverItem());
+        InputStream is = pageaccess.getInputStream(epubFile.getCoverItem());
+
         bmp = BitmapFactory.decodeStream(is);
         return bmp;
+
     }
 }
