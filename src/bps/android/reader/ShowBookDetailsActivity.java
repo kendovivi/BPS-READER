@@ -35,8 +35,7 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         ft.commit();
         
         mBtn_read = findViewById(R.id.btn_read);
-        mBtn_read.setOnClickListener(this);
-        
+        mBtn_read.setOnClickListener(this); 
         mBookList = BookManager.getbookList();
         
     }

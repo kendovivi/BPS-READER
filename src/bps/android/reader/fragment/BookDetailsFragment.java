@@ -1,6 +1,12 @@
 package bps.android.reader.fragment;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.zip.ZipException;
+
+import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
+import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 
 import android.app.Fragment;
 import android.graphics.Bitmap;
@@ -56,6 +62,21 @@ public class BookDetailsFragment extends Fragment {
         bookAuthor.setText("作者　:　" + mBookList.get(getBookId()).getmAuthor());
         bookPublisher.setText("出版社　: " + mBookList.get(getBookId()).getmPublisher());
         bookPTime.setText("出版時間　: " + mBookList.get(getBookId()).getmPtime());
+        
+        
+        try {
+            bookcover = BookManager.getBookBmp(getBookId());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (ZipException e) {
+            e.printStackTrace();
+        } catch (EpubOtherException e) {
+            e.printStackTrace();
+        } catch (EpubParseException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         bookCover.setImageBitmap(bookcover);
         return v;
     }

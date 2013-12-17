@@ -9,7 +9,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.zip.ZipException;
 
-import jp.bpsinc.android.viewer.epub.content.EpubFile;
 import jp.bpsinc.android.viewer.epub.content.EpubZipFile;
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
@@ -18,13 +17,22 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
+import bps.android.reader.listadapter.BookshelfEpubFile;
+import bps.android.reader.listadapter.BookshelfEpubPageAccess;
 import bps.android.reader.xmlparser.MyParser;
 
 public class BookManager {
 
     private static ArrayList<BookInfo> mBookList;
+
+    private static final String SDCARD_PATH = Environment.getExternalStorageDirectory()
+            .getAbsolutePath();
+
+    public static String[] mFiles;
 
     public static ArrayList<BookInfo> getbookList() {
         return BookManager.mBookList;
@@ -53,29 +61,46 @@ public class BookManager {
         }
     }
 
+    /**
+     * get bookList from SDcard
+     * 
+     * @throws FileNotFoundException
+     * @throws ZipException
+     * @throws EpubOtherException
+     * @throws EpubParseException
+     */
     public static void getSDcardBookList() throws FileNotFoundException, ZipException,
             EpubOtherException, EpubParseException {
-        String SDCardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String[] files = new File(SDCardPath).list(new FilenameFilter() {
-                    @Override
-                    public boolean accept(File dir, String filename) {
-                        return (filename != null && filename.endsWith(".epub"));
-                    }
-                });
+
+        mFiles = new File(SDCARD_PATH).list(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String filename) {
+                return (filename != null && filename.endsWith(".epub"));
+            }
+        });
         BookInfo bookInfo;
         mBookList = new ArrayList<BookInfo>();
-        for (int i = 0; i < files.length; i++) {
+        for (int i = 0; i < mFiles.length; i++) {
+
             bookInfo = new BookInfo();
-            EpubZipFile epubZipFile = new EpubZipFile(new File(SDCardPath, files[i]).getPath());
-            EpubFile epubFile = new EpubFile(epubZipFile, null);
+            EpubZipFile epubZipFile = new EpubZipFile(new File(SDCARD_PATH, mFiles[i]).getPath());
+            BookshelfEpubFile epubFile = new BookshelfEpubFile(epubZipFile, null);
             bookInfo.setmName(epubFile.getTitle());
             bookInfo.setmAuthor(epubFile.getAuthor());
             bookInfo.setmPublisher(epubFile.getOpfMeta().getPublisher());
-            bookInfo.setmEpubPath(new File(SDCardPath, files[i]).getPath());
+            bookInfo.setmEpubPath(new File(SDCARD_PATH, mFiles[i]).getPath());
             mBookList.add(bookInfo);
+            // Log.d("booklist size = ", epubFile.get );
         }
+    }
 
-        // Log.d("booklist size = ", mBookList.size()+ "");
-
+    public static Bitmap getBookBmp(int position) throws EpubOtherException, EpubParseException, IOException {
+        Bitmap bmp;
+        EpubZipFile epubZipFile = new EpubZipFile(new File(SDCARD_PATH, mFiles[position]).getPath());
+        BookshelfEpubFile epubFile = new BookshelfEpubFile(epubZipFile, null);
+        BookshelfEpubPageAccess pageaccess = new BookshelfEpubPageAccess(epubZipFile, epubFile);
+        InputStream is =  pageaccess.getInputStream(epubFile.getCoverItem());
+        bmp = BitmapFactory.decodeStream(is);
+        return bmp;
     }
 }

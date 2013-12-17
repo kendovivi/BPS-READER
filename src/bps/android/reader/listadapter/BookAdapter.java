@@ -1,12 +1,18 @@
 
 package bps.android.reader.listadapter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.zip.ZipException;
 
+import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
+import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import bps.android.reader.book.BookInfo;
+import bps.android.reader.book.BookManager;
 
 import com.example.bps_reader.R;
 
@@ -81,11 +88,33 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
 
         final BookInfo book = getItem(position);
         if (book != null) {
-            coverViewId = activity.getResources().getIdentifier("drawable/" + book.getmImgURLH(),
-                    "drawable", activity.getPackageName());
-            coverViewId = coverViewId == 0 ? defaultCoverViewId : coverViewId;
-            bookCover = BitmapFactory.decodeResource(activity.getResources(), coverViewId);
+            try {
+                bookCover = BookManager.getBookBmp(position);
+                
+                if (bookCover == null) {
 
+                    coverViewId = activity.getResources().getIdentifier(
+                            "drawable/" + book.getmImgURLH(), "drawable", activity.getPackageName());
+                    // coverViewId = coverViewId == 0 ? defaultCoverViewId :
+                    // coverViewId;
+                    bookCover = BitmapFactory.decodeResource(activity.getResources(), coverViewId);
+                }
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ZipException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (EpubOtherException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (EpubParseException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             holder.bookCover.setImageBitmap(bookCover);
             if (mType == LIST) {
                 holder.bookName.setText("【" + book.getmName() + "】");
