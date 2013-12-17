@@ -1,7 +1,12 @@
 
 package bps.android.reader;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.zip.ZipException;
+
+import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
+import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -35,7 +40,22 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         if (savedInstanceState != null) {
             savedInstanceState.getInt("curPosition", 0);
         }
-        initVar();
+        
+        try {
+            initVar();
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ZipException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (EpubOtherException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (EpubParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -115,8 +135,12 @@ public class BookShelfActivity extends Activity implements OnClickListener {
 
     /**
      * initialize variables
+     * @throws EpubParseException 
+     * @throws EpubOtherException 
+     * @throws ZipException 
+     * @throws FileNotFoundException 
      */
-    private void initVar() {
+    private void initVar() throws FileNotFoundException, ZipException, EpubOtherException, EpubParseException {
 
         // portrait -> booklist_vertical, horizontal -> booklist_horizantal
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -133,7 +157,8 @@ public class BookShelfActivity extends Activity implements OnClickListener {
 
         if (mBM == null) {
             mBM = new BookManager();
-            mBM.initBookList();
+            //mBM.initBookList();
+            BookManager.getSDcardBookList();
         }
         mBookList = BookManager.getbookList();
         System.out.println(mBookList);
