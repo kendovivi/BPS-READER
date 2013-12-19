@@ -76,7 +76,6 @@
                 android:layout_alignLeft="@id/bookPrice"
                 android:layout_below="@id/bookPrice"
                 android:text="@string/read" />
-            
         </RelativeLayout>
     </FrameLayout>
 

@@ -3,18 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <fragment class="bps.android.reader.fragment.BookListFragment"
+    <fragment
         android:id="@+id/boolisth"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.3" />
-    
-    <FrameLayout 
-        android:id="@+id/detailsh" 
+        android:layout_weight="0.3"
+        class="bps.android.reader.fragment.BookListFragment" />
+
+    <FrameLayout
+        android:id="@+id/detailsh"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.7"
-        android:background="?android:attr/detailsElementBackground"
-        class="bps.android.reader.fragment.BookDetailsFragment" />
+        class="bps.android.reader.fragment.BookDetailsFragment"
+        android:background="?android:attr/detailsElementBackground" />
 
 </LinearLayout>

@@ -37,7 +37,8 @@ public class SampleDialogShelfActivity extends Activity {
                     mIntent = new Intent(mActivity,
                             jp.bpsinc.android.viewer.epub.omf.activity.OmfEpubViewerActivity.class);
                 } else if (which == 2) {
-                    mIntent = new Intent(mActivity, bps.android.reader.activity.ShowArticleActivity.class);
+                    mIntent = new Intent(mActivity,
+                            bps.android.reader.activity.ShowArticleActivity.class);
                 }
                 mIntent.putExtra("bookId", getIntent().getIntExtra("bookId", 0));
                 mIntent.putExtra(EpubViewerActivity.INTENT_KEY_EPUB_CONTENTS, getIntent()

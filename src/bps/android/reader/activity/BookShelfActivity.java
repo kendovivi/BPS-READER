@@ -161,7 +161,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         switch (v.getId()) {
             case R.id.btn_read:
                 Intent intent = new Intent();
-                intent.setClass(this, ShowArticleActivity.class);
+                intent.setClass(this, SampleDialogShelfActivity.class);
                 intent.putExtra("bookId", mPosition);
                 intent.putExtra("pageNum", 0);
                 startActivity(intent);

@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
     <ListPreference
-        android:key="@string/pre_key_omf_epub_viewer_orientation"
-        android:title="@string/pre_title_omf_epub_viewer_orientation"
         android:defaultValue="@string/pre_default_omf_epub_viewer_orientation"
         android:entries="@array/pre_entrys_omf_epub_viewer_orientation"
-        android:entryValues="@array/pre_entryValues_omf_epub_viewer_orientation" />
+        android:entryValues="@array/pre_entryValues_omf_epub_viewer_orientation"
+        android:key="@string/pre_key_omf_epub_viewer_orientation"
+        android:title="@string/pre_title_omf_epub_viewer_orientation" />
     <ListPreference
-        android:key="@string/pre_key_omf_epub_viewer_animation"
-        android:title="@string/pre_title_omf_epub_viewer_animation"
         android:defaultValue="@string/pre_default_omf_epub_viewer_animation"
         android:entries="@array/pre_entrys_omf_epub_viewer_animation"
-        android:entryValues="@array/pre_entryValues_omf_epub_viewer_animation" />
+        android:entryValues="@array/pre_entryValues_omf_epub_viewer_animation"
+        android:key="@string/pre_key_omf_epub_viewer_animation"
+        android:title="@string/pre_title_omf_epub_viewer_animation" />
+
     <jp.bpsinc.android.viewer.preference.BrightnessPreference
+        android:defaultValue="@integer/pre_default_omf_epub_viewer_brightness"
         android:key="@string/pre_key_omf_epub_viewer_brightness"
-        android:title="@string/pre_title_omf_epub_viewer_brightness"
-        android:defaultValue="@integer/pre_default_omf_epub_viewer_brightness" />
+        android:title="@string/pre_title_omf_epub_viewer_brightness" />
 
 </PreferenceScreen>
