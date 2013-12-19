@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
@@ -32,6 +33,10 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        //View v = getLayoutInflater().inflate(R.layout.details, null);
+        
+        
         setContentView(R.layout.bookdetails_vertical);
         BookDetailsFragment bdf = new BookDetailsFragment();
         bdf.setArguments(getIntent().getExtras());
@@ -39,9 +44,8 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         FragmentTransaction ft = manager.beginTransaction();
         ft.add(R.id.detailsv, bdf);
         ft.commit();
-
-        btn_read = (Button)findViewById(R.id.btn_read);
-        btn_read.setOnClickListener(this);
+        //btn_read = (Button)findViewById(R.id.book_fragment_horizontal_btn_read);
+        //btn_read.setOnClickListener(this);
         
 
     }
@@ -50,7 +54,7 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.btn_read:
+            case R.id.book_fragment_horizontal_btn_read:
                 // intent.setClass(this, FxlEpubViewerActivity.class);
                 intent.setClass(this, SampleDialogShelfActivity.class);
                 intent.putExtra("bookId", mCurrentBookId);

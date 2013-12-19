@@ -65,7 +65,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState);     
         outState.putInt("curPosition", mPosition);
     }
 
@@ -136,8 +136,8 @@ public class BookShelfActivity extends Activity implements OnClickListener {
             mIsHorizantal = true;
             mIsVertical = false;
             setContentView(R.layout.booklist_horizantal);
-            Button btn_read = (Button)findViewById(R.id.btn_read);
-            btn_read.setOnClickListener(this);
+            //Button btn_read = (Button)findViewById(R.id.book_fragment_horizontal_btn_read);
+            //btn_read.setOnClickListener(this);
         }
 
         mBookManager = new BookManager();
@@ -159,7 +159,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_read:
+            case R.id.book_fragment_horizontal_btn_read:
                 Intent intent = new Intent();
                 intent.setClass(this, SampleDialogShelfActivity.class);
                 intent.putExtra("bookId", mPosition);

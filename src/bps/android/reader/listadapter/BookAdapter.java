@@ -2,7 +2,6 @@
 package bps.android.reader.listadapter;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.zip.ZipException;
 
@@ -12,7 +11,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +23,6 @@ import bps.android.reader.book.BookManager;
 import com.example.bps_reader.R;
 
 public class BookAdapter extends ArrayAdapter<BookInfo> {
-
-    
 
     public BookAdapter(Activity a, int textViewResourceId, ArrayList<BookInfo> entries, int type) {
         super(a, textViewResourceId, entries);
@@ -71,13 +67,16 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         if (book != null) {
             try {
                 mBookCover = mBookManager.getBookBmp(position);
-                
+
                 if (mBookCover == null) {
 
-                    coverViewId = activity.getResources().getIdentifier(
-                            "drawable/" + book.getmImgURLH(), "drawable", activity.getPackageName());
-                    // coverViewId = coverViewId == 0 ? defaultCoverViewId :
-                    // coverViewId;
+                    defaultCoverViewId = R.drawable.default_book_cover;
+                    // old version
+                    coverViewId = activity.getResources()
+                            .getIdentifier("drawable/" + book.getmImgURLH(), "drawable",
+                                    activity.getPackageName());
+                    coverViewId = coverViewId == 0 ? defaultCoverViewId : coverViewId;
+
                     mBookCover = BitmapFactory.decodeResource(activity.getResources(), coverViewId);
                 }
             } catch (FileNotFoundException e) {
@@ -99,8 +98,10 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         }
         return v;
     }
-    
+
     private Activity activity;
+
+    private int defaultCoverViewId;
 
     private Bitmap mBookCover;
 
@@ -108,10 +109,10 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
 
     private int coverViewId;
 
-    //private int defaultCoverViewId = R.drawable.default_book_cover;
+    // private int defaultCoverViewId = R.drawable.default_book_cover;
 
     private int mType;
-    
+
     private BookManager mBookManager;
 
     public static final int LIST = 1;

@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.zip.ZipException;
 
+import jp.bpsinc.android.util.LogUtil;
 import jp.bpsinc.android.viewer.epub.content.EpubZipFile;
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
@@ -40,7 +41,7 @@ public class BookManager {
      * @return
      */
     public ArrayList<BookInfo> getBookList() {
-        ArrayList<BookInfo> bookList = new ArrayList<BookInfo>();
+        mBookList = new ArrayList<BookInfo>();
         try {
             XmlPullParserFactory pullParserFactory = XmlPullParserFactory.newInstance();
             XmlPullParser parser = pullParserFactory.newPullParser();
@@ -48,7 +49,6 @@ public class BookManager {
             parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, false);
             parser.setInput(in_s, null);
             mBookList = MyParser.parseXMLtoBookList(parser);
-            System.out.println(bookList);
         } catch (XmlPullParserException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -98,7 +98,6 @@ public class BookManager {
                 e.printStackTrace();
             }
         }
-
         return mBookList;
     }
 
@@ -111,9 +110,10 @@ public class BookManager {
         BookshelfEpubFile epubFile = new BookshelfEpubFile(epubZipFile, null);
         BookshelfEpubPageAccess pageaccess = new BookshelfEpubPageAccess(epubZipFile, epubFile);
         InputStream is = pageaccess.getInputStream(epubFile.getCoverItem());
+        //LogUtil.e(epubFile.getCoverItem().getMediaType() + "  book title: " + epubFile.getTitle());
 
         bmp = BitmapFactory.decodeStream(is);
-        return bmp;
+        return epubFile.getCoverItem().isCoverImage() ? bmp : null;
 
     }
 }
