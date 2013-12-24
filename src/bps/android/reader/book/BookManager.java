@@ -186,9 +186,13 @@ public class BookManager {
 
         private Activity mActivity;
 
+<<<<<<< HEAD
         private Bitmap mBitmap;
 
         String mPath;
+=======
+        private Bitmap bitmap;
+>>>>>>> c94db3c... when loading bitmap it now check the current imageView task
 
         public BitmapWorkerTask(ImageView imageView, Activity activity) {
             mImageViewReference = new WeakReference<ImageView>(imageView);
@@ -198,19 +202,28 @@ public class BookManager {
         // start loading bitmap in background and return finished bitmap
         @Override
         protected Bitmap doInBackground(String... params) {
+<<<<<<< HEAD
             mPath = params[0];
             this.mBitmap = getEpubCoverBitmap(params[0]);
             return mBitmap;
+=======
+            this.bitmap = getEpubCoverBitmap(params[0]);
+            return bitmap;
+>>>>>>> c94db3c... when loading bitmap it now check the current imageView task
         }
 
         // set imageView when bitmap loading is complete
         @Override
         protected void onPostExecute(Bitmap bitmap) {
+<<<<<<< HEAD
 
             if (isCancelled()) {
                 LogUtil.d(bitmap + "");
                 bitmap = null;
             } else if (mImageViewReference != null) {
+=======
+            if (mImageViewReference != null) {
+>>>>>>> c94db3c... when loading bitmap it now check the current imageView task
                 final ImageView imageView = mImageViewReference.get();
                 // use default cover bitmap
                 if (bitmap == null) {
@@ -251,6 +264,7 @@ public class BookManager {
             return epubFile.getCoverItem().isCoverImage() ? BitmapFactory.decodeStream(is) : null;
         }
     }
+<<<<<<< HEAD
 
     /**
      * set a reference by bitmapDrawable for the task
@@ -260,6 +274,17 @@ public class BookManager {
     static class AsyncDrawable extends BitmapDrawable {
         private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
 
+=======
+
+    /**
+     * set a reference by bitmapDrawable for the task
+     * 
+     * @author kendovivi
+     */
+    static class AsyncDrawable extends BitmapDrawable {
+        private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
+
+>>>>>>> c94db3c... when loading bitmap it now check the current imageView task
         public AsyncDrawable(Resources res, Bitmap bitmap, BitmapWorkerTask task) {
             super(res, bitmap);
             bitmapWorkerTaskReference = new WeakReference<BitmapWorkerTask>(task);
@@ -297,6 +322,7 @@ public class BookManager {
      * @param activity
      */
     private void loadBitmap(String path, ImageView imageView, Activity activity) {
+<<<<<<< HEAD
         // check whether the task is same or not
         if (cancelCurrentTask(path, imageView)) {
             BitmapWorkerTask task = new BitmapWorkerTask(imageView, activity);
@@ -305,6 +331,13 @@ public class BookManager {
             imageView.setImageDrawable(asyncDrawable);
             task.execute(path);
         }
+=======
+        BitmapWorkerTask task = new BitmapWorkerTask(imageView, activity);
+        AsyncDrawable asyncDrawable = new AsyncDrawable(activity.getApplicationContext()
+                .getResources(), task.bitmap, task);
+        imageView.setImageDrawable(asyncDrawable);
+        task.execute(path);
+>>>>>>> c94db3c... when loading bitmap it now check the current imageView task
     }
 
 }
