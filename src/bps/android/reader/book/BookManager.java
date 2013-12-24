@@ -1,4 +1,3 @@
-
 package bps.android.reader.book;
 
 import java.io.File;
