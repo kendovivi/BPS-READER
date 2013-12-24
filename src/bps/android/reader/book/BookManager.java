@@ -10,7 +10,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.zip.ZipException;
 
-import jp.bpsinc.android.util.LogUtil;
 import jp.bpsinc.android.viewer.epub.content.EpubZipFile;
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
@@ -160,7 +159,6 @@ public class BookManager {
 
         final BitmapWorkerTask task = getBitmapWorkerTask(imageView);
         if (task != null) {
-            LogUtil.d(task + "");
             final String loadingImagePath = task.mPath;
             if (loadingImagePath != null) {
                 // when different, cancel the old task and start the new one
@@ -208,7 +206,6 @@ public class BookManager {
         protected void onPostExecute(Bitmap bitmap) {
 
             if (isCancelled()) {
-                LogUtil.d(bitmap + "");
                 bitmap = null;
             } else if (mImageViewReference != null) {
                 final ImageView imageView = mImageViewReference.get();
