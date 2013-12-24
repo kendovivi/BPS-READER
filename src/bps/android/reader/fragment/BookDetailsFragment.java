@@ -71,10 +71,9 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
                 R.id.book_fragment_horizontal_image);
         btn_read = (Button)getActivity().findViewById(R.id.book_fragment_horizontal_btn_read);
 
-        // set details bookCover bitmap
-
+        // set details bookCover bitmap\
         try {
-            mCoverBitmap = mBookManager.getBookBmp(getBookId());
+            mBookManager.getBookBmp(getBookId(), bookCover, getActivity());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (ZipException e) {
@@ -84,17 +83,6 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
         } catch (EpubParseException e) {
             e.printStackTrace();
         }
-        if (mCoverBitmap == null) {
-            int coverViewId = getResources().getIdentifier(
-                    "drawable/" + mBookList.get(getBookId()).getmImgURLH(), "drawable",
-                    getActivity().getPackageName());
-            coverViewId = coverViewId == 0 ? R.drawable.default_book_cover : coverViewId;
-            // set to default book cover
-            mCoverBitmap = BitmapFactory.decodeResource(getActivity().getResources(), coverViewId);
-        }
-
-        bookCover.setImageBitmap(mCoverBitmap);
-
         v.setPadding(5, 5, 5, 5);
         bookName.setText("本名　: " + mBookList.get(getBookId()).getmName());
         bookAuthor.setText("作者　:　" + mBookList.get(getBookId()).getmAuthor());

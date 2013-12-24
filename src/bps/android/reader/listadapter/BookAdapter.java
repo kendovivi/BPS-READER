@@ -77,20 +77,7 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         final BookInfo book = getItem(position);
         if (book != null) {
             try {
-                mBookCover = bookManager.getBookBmp(position);
-
-                if (mBookCover == null) {
-
-                    int defaultCoverViewId = R.drawable.default_book_cover;
-                    // old version
-                    int coverViewId = mActivity.getResources().getIdentifier(
-                            "drawable/" + book.getmImgURLH(), "drawable",
-                            mActivity.getPackageName());
-                    coverViewId = coverViewId == 0 ? defaultCoverViewId : coverViewId;
-
-                    mBookCover = BitmapFactory
-                            .decodeResource(mActivity.getResources(), coverViewId);
-                }
+                bookManager.getBookBmp(position, holder.bookCover, mActivity);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (ZipException e) {
@@ -100,7 +87,6 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
             } catch (EpubParseException e) {
                 e.printStackTrace();
             }
-            holder.bookCover.setImageBitmap(mBookCover);
             if (mListViewType == LIST) {
                 holder.bookName.setText("【" + book.getmName() + "】");
                 holder.bookAuthor.setText("　本名:　" + book.getmAuthor());
