@@ -33,6 +33,28 @@ import com.example.bps_reader.R;
 
 public class BookShelfActivity extends Activity implements OnClickListener {
 
+    private static final int DEFAULT_POSITION = 0;
+
+    private BookManager mBookManager;
+
+    private int mPosition;
+
+    private boolean mIsHorizantal;
+
+    private boolean mIsVertical;
+
+    private boolean mIsDual;
+
+    private int mGridViewId;
+
+    private ArrayList<BookInfo> mBookList;
+
+    private GridView mGrid;
+
+    private BookAdapter mAdapter;
+
+    private MyApplication mApplication;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -145,7 +167,6 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         }
 
         if (mApplication.getIsFirstTime()) {
-
             mBookList = mBookManager.getSDcardBookList();
             mApplication.setIsFirstTime(false);
             mBookManager.setAppBookList(this, mBookList);
@@ -180,25 +201,4 @@ public class BookShelfActivity extends Activity implements OnClickListener {
 
     }
 
-    private BookManager mBookManager;
-
-    private int mPosition;
-
-    private boolean mIsHorizantal;
-
-    private boolean mIsVertical;
-
-    private boolean mIsDual;
-
-    private int mGridViewId;
-
-    private ArrayList<BookInfo> mBookList;
-
-    private GridView mGrid;
-
-    private BookAdapter mAdapter;
-
-    private MyApplication mApplication;
-
-    private static final int DEFAULT_POSITION = 0;
 }

@@ -22,6 +22,30 @@ import com.example.bps_reader.R;
 
 public class ShowArticleActivity extends Activity implements OnClickListener {
 
+    private static final int NEXT = 1;
+
+    private static final int LAST = 2;
+
+    private ArrayList<BookInfo> mBookList;
+
+    private BookManager mBookManager;
+
+    private FileManager mFileManager;
+
+    private int mBookId;
+
+    private String mBookName;
+
+    private int mPageNum;
+
+    private int mTotalPageNum;
+
+    private TextView mArticleView;
+
+    private TextView mTotalPageView;
+
+    private String mPageToShow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,38 +125,10 @@ public class ShowArticleActivity extends Activity implements OnClickListener {
         mBookName = mBookList.get(mBookId).getmName();
         mArticleView = (TextView)findViewById(R.id.article);
         mTotalPageView = (TextView)findViewById(R.id.total_page);
-        btn_next = (Button)findViewById(R.id.next_page);
-        btn_last = (Button)findViewById(R.id.last_page);
+        Button btn_next = (Button)findViewById(R.id.next_page);
+        Button btn_last = (Button)findViewById(R.id.last_page);
         btn_next.setOnClickListener(this);
         btn_last.setOnClickListener(this);
     }
-
-    private int mBookId;
-
-    private String mBookName;
-
-    private int mPageNum;
-
-    private int mTotalPageNum;
-
-    private TextView mArticleView;
-
-    private Button btn_next;
-
-    private Button btn_last;
-
-    private TextView mTotalPageView;
-
-    private ArrayList<BookInfo> mBookList;
-
-    private BookManager mBookManager;
-
-    private FileManager mFileManager;
-
-    private String mPageToShow;
-
-    private static final int NEXT = 1;
-
-    private static final int LAST = 2;
 
 }

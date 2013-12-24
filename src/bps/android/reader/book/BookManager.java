@@ -29,10 +29,10 @@ import bps.android.reader.xmlparser.MyParser;
 
 public class BookManager {
 
-    private ArrayList<BookInfo> mBookList;
-
     private static final String SDCARD_PATH = Environment.getExternalStorageDirectory()
             .getAbsolutePath();
+
+    private ArrayList<BookInfo> mBookList;
 
     public static String[] mFiles;
 
@@ -122,32 +122,33 @@ public class BookManager {
         BookshelfEpubFile epubFile = new BookshelfEpubFile(epubZipFile, null);
         BookshelfEpubPageAccess pageaccess = new BookshelfEpubPageAccess(epubZipFile, epubFile);
         InputStream is = pageaccess.getInputStream(epubFile.getCoverItem());
-        //LogUtil.e(epubFile.getCoverItem().getMediaType() + "  book title: " + epubFile.getTitle());
+        // LogUtil.e(epubFile.getCoverItem().getMediaType() + "  book title: " +
+        // epubFile.getTitle());
 
         bmp = BitmapFactory.decodeStream(is);
         return epubFile.getCoverItem().isCoverImage() ? bmp : null;
 
     }
-    
+
     /**
      * save the bookList load from SDcard into application context
      * 
      * @param activity
      * @param booklist
      */
-    public void setAppBookList(Activity activity, ArrayList<BookInfo> booklist){
-        MyApplication application = (MyApplication) activity.getApplicationContext();
+    public void setAppBookList(Activity activity, ArrayList<BookInfo> booklist) {
+        MyApplication application = (MyApplication)activity.getApplicationContext();
         application.setBookList(booklist);
     }
-    
+
     /**
      * get the bookList from application context
      * 
      * @param activity
      * @return
      */
-    public ArrayList<BookInfo> getAppBookList(Activity activity){
-        MyApplication application = (MyApplication) activity.getApplicationContext();
+    public ArrayList<BookInfo> getAppBookList(Activity activity) {
+        MyApplication application = (MyApplication)activity.getApplicationContext();
         return application.getBookList();
     }
 }

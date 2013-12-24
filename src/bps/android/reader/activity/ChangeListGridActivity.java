@@ -18,12 +18,15 @@ import com.example.bps_reader.R;
 
 public class ChangeListGridActivity extends Activity {
 
+    private ListView mListView;
+
+    private ArrayList<BookInfo> mBookList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.booklist_listview); 
-        mBookManager = new BookManager();
-        // ****************************
+        setContentView(R.layout.booklist_listview);
+        BookManager mBookManager = new BookManager();
         mBookList = mBookManager.getAppBookList(this);
         setListView(R.id.book_listview);
 
@@ -32,22 +35,18 @@ public class ChangeListGridActivity extends Activity {
     void setListView(int listViewId) {
         mListView = (ListView)findViewById(listViewId);
         mListView.setAdapter(new BookAdapter(this, listViewId, mBookList, BookAdapter.LIST));
-        mListView.setOnItemClickListener(new OnItemClickListener(){
+        mListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Intent intent = new Intent();
-                intent.setClass(getApplicationContext(), bps.android.reader.activity.ShowBookDetailsActivity.class);
+                intent.setClass(getApplicationContext(),
+                        bps.android.reader.activity.ShowBookDetailsActivity.class);
                 intent.putExtra("bookId", position);
                 startActivity(intent);
             }
-            
+
         });
     }
 
-    private ListView mListView;
-
-    private ArrayList<BookInfo> mBookList;
-    
-    private BookManager mBookManager;
 }

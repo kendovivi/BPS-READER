@@ -21,6 +21,12 @@ import com.example.bps_reader.R;
 
 public class ShowBookDetailsActivity extends Activity implements OnClickListener {
 
+    private BookManager mBookManager;
+
+    private ArrayList<BookInfo> mBookList;
+
+    private int mCurrentBookId;
+
     @SuppressLint("NewApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +59,5 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         }
 
     }
-
-    private BookManager mBookManager;
-
-    private int mCurrentBookId;
-
-    private ArrayList<BookInfo> mBookList;
 
 }

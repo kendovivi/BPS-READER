@@ -11,6 +11,12 @@ import android.content.Context;
 
 public class FileManager {
 
+    private ArrayList<String> mPageList;
+
+    private int mTotalPages;
+
+    private int mByte;
+
     public String getTextContent(Context context, int bookId, int pageId, String bookName)
             throws UnsupportedEncodingException, IOException {
         mByte = 550;
@@ -34,11 +40,5 @@ public class FileManager {
     public int getTotalPagesNum() {
         return this.mTotalPages;
     }
-
-    private ArrayList<String> mPageList;
-
-    private int mTotalPages;
-
-    private int mByte;
 
 }

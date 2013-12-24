@@ -34,9 +34,9 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
 
     private BookManager mBookManager;
 
-    private Button btn_read;
-
     private Bitmap mCoverBitmap;
+
+    private Button btn_read;
 
     public static BookDetailsFragment newInstance(int bookId) {
         BookDetailsFragment bf = new BookDetailsFragment();
