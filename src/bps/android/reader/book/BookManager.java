@@ -19,8 +19,11 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.widget.ImageView;
@@ -140,7 +143,7 @@ public class BookManager {
      * @throws EpubOtherException
      * @throws EpubParseException
      */
-    public void getBookBmp(int position, ImageView imageView, Activity activity)
+    public void setBookBmp(int position, ImageView imageView, Activity activity)
             throws FileNotFoundException, ZipException, EpubOtherException, EpubParseException {
         loadBitmap(new File(SDCARD_PATH, mFiles[position]).getPath(), imageView, activity);
     }
@@ -155,21 +158,48 @@ public class BookManager {
 
         private Activity mActivity;
 
+        private Bitmap bitmap;
+
         public BitmapWorkerTask(ImageView imageView, Activity activity) {
             mImageViewReference = new WeakReference<ImageView>(imageView);
             this.mActivity = activity;
         }
 
-        // load bitmap in background
+        // start loading bitmap in background and return finished bitmap
         @Override
         protected Bitmap doInBackground(String... params) {
+            this.bitmap = getEpubCoverBitmap(params[0]);
+            return bitmap;
+        }
+
+        // set imageView when bitmap loading is complete
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (mImageViewReference != null) {
+                final ImageView imageView = mImageViewReference.get();
+                // use default cover bitmap
+                if (bitmap == null) {
+                    int defaultCoverViewId = R.drawable.default_book_cover;
+                    bitmap = BitmapFactory.decodeResource(mActivity.getResources(),
+                            defaultCoverViewId);
+                }
+
+                final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
+                if (this == bitmapWorkerTask && imageView != null) {
+                    imageView.setImageBitmap(bitmap);
+                }
+            }
+        }
+
+        // get EpubFile cover bitmap
+        private Bitmap getEpubCoverBitmap(String path) {
             EpubZipFile epubZipFile;
             BookshelfEpubFile epubFile = null;
             InputStream is = null;
-
             BookshelfEpubPageAccess pageaccess;
+
             try {
-                epubZipFile = new EpubZipFile(params[0]);
+                epubZipFile = new EpubZipFile(path);
                 epubFile = new BookshelfEpubFile(epubZipFile, null);
                 pageaccess = new BookshelfEpubPageAccess(epubZipFile, epubFile);
                 is = pageaccess.getInputStream(epubFile.getCoverItem());
@@ -184,30 +214,58 @@ public class BookManager {
                 e.printStackTrace();
             }
             return epubFile.getCoverItem().isCoverImage() ? BitmapFactory.decodeStream(is) : null;
-
-        }
-
-        // set imageView when loading is complete
-        @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            if (mImageViewReference != null) {
-                final ImageView imageView = mImageViewReference.get();
-                // use default cover bitmap
-                if (bitmap == null) {
-                    int defaultCoverViewId = R.drawable.default_book_cover;
-                    bitmap = BitmapFactory.decodeResource(mActivity.getResources(),
-                            defaultCoverViewId);
-                }
-
-                if (imageView != null) {
-                    imageView.setImageBitmap(bitmap);
-                }
-            }
         }
     }
 
+    /**
+     * set a reference by bitmapDrawable for the task
+     * 
+     * @author kendovivi
+     */
+    static class AsyncDrawable extends BitmapDrawable {
+        private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
+
+        public AsyncDrawable(Resources res, Bitmap bitmap, BitmapWorkerTask task) {
+            super(res, bitmap);
+            bitmapWorkerTaskReference = new WeakReference<BitmapWorkerTask>(task);
+        }
+
+        public BitmapWorkerTask getBitmapWorkerTask() {
+            return bitmapWorkerTaskReference.get();
+        }
+
+    }
+
+    /**
+     * get task from imageView
+     * 
+     * @param imageView
+     * @return
+     */
+    private BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
+        if (imageView != null) {
+            Drawable drawable = imageView.getDrawable();
+            if (drawable instanceof AsyncDrawable) {
+                AsyncDrawable asyncDrawable = (AsyncDrawable)drawable;
+                return asyncDrawable.getBitmapWorkerTask();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * load bitmap using AsyncDrawable and set finished part to imageView
+     * 
+     * @param path
+     * @param imageView
+     * @param activity
+     */
     private void loadBitmap(String path, ImageView imageView, Activity activity) {
         BitmapWorkerTask task = new BitmapWorkerTask(imageView, activity);
+        AsyncDrawable asyncDrawable = new AsyncDrawable(activity.getApplicationContext()
+                .getResources(), task.bitmap, task);
+        imageView.setImageDrawable(asyncDrawable);
         task.execute(path);
     }
 
