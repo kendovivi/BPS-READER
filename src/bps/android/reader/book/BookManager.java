@@ -18,9 +18,11 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import bps.android.reader.application.MyApplication;
 import bps.android.reader.listadapter.BookshelfEpubFile;
 import bps.android.reader.listadapter.BookshelfEpubPageAccess;
 import bps.android.reader.xmlparser.MyParser;
@@ -101,6 +103,16 @@ public class BookManager {
         return mBookList;
     }
 
+    /**
+     * get bitmap from epub opf file
+     * 
+     * @param position
+     * @return
+     * @throws FileNotFoundException
+     * @throws ZipException
+     * @throws EpubOtherException
+     * @throws EpubParseException
+     */
     public Bitmap getBookBmp(int position) throws FileNotFoundException, ZipException,
             EpubOtherException, EpubParseException {
         Bitmap bmp;
@@ -115,5 +127,27 @@ public class BookManager {
         bmp = BitmapFactory.decodeStream(is);
         return epubFile.getCoverItem().isCoverImage() ? bmp : null;
 
+    }
+    
+    /**
+     * save the bookList load from SDcard into application context
+     * 
+     * @param activity
+     * @param booklist
+     */
+    public void setAppBookList(Activity activity, ArrayList<BookInfo> booklist){
+        MyApplication application = (MyApplication) activity.getApplicationContext();
+        application.setBookList(booklist);
+    }
+    
+    /**
+     * get the bookList from application context
+     * 
+     * @param activity
+     * @return
+     */
+    public ArrayList<BookInfo> getAppBookList(Activity activity){
+        MyApplication application = (MyApplication) activity.getApplicationContext();
+        return application.getBookList();
     }
 }

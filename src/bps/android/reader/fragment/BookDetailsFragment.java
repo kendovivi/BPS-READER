@@ -53,7 +53,7 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mBookManager = new BookManager();
-        mBookList = mBookManager.getSDcardBookList();
+        mBookList = mBookManager.getAppBookList(this.getActivity());
         if (container == null) {
             return null;
         }
@@ -89,7 +89,7 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
                     "drawable/" + mBookList.get(getBookId()).getmImgURLH(), "drawable",
                     getActivity().getPackageName());
             coverViewId = coverViewId == 0 ? R.drawable.default_book_cover : coverViewId;
-            //set to default book cover
+            // set to default book cover
             mCoverBitmap = BitmapFactory.decodeResource(getActivity().getResources(), coverViewId);
         }
 
@@ -102,13 +102,11 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
         bookPTime.setText("出版時間　: " + mBookList.get(getBookId()).getmPtime());
         btn_read.setOnClickListener(this);
         btn_read.setEnabled(true);
-        //LogUtil.d("fragment onCreateView");
         return v;
     }
 
     @Override
     public void onClick(View v) {
-        LogUtil.d("******************************");
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.book_fragment_horizontal_btn_read:
@@ -120,34 +118,5 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
                 break;
         }
     }
-    
-    @Override
-    public void onPause(){
-        super.onPause();
-        LogUtil.e("fragment onPause");
-    }
-    
-    @Override
-    public void onResume(){
-        super.onResume();
-        LogUtil.e("fragment onResume");
-    }
-    
-    @Override
-    public void onStop(){
-        super.onStop();
-        LogUtil.e("fragment onStop");
-    }
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        LogUtil.e("fragment onDestroy");
-    }
-    
-    @Override
-    public void onDetach(){
-        super.onDetach();
-        LogUtil.e("fragment onDetach");
-    }
-  
+
 }

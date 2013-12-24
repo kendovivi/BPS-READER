@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
+import bps.android.reader.application.MyApplication;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
 import bps.android.reader.fragment.BookDetailsFragment;
@@ -65,7 +66,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);     
+        super.onSaveInstanceState(outState);
         outState.putInt("curPosition", mPosition);
     }
 
@@ -127,6 +128,8 @@ public class BookShelfActivity extends Activity implements OnClickListener {
      */
     private void initVar() {
 
+        mApplication = (MyApplication)this.getApplicationContext();
+        mBookManager = new BookManager();
         // portrait -> booklist_vertical, horizontal -> booklist_horizantal
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mIsHorizantal = false;
@@ -136,12 +139,19 @@ public class BookShelfActivity extends Activity implements OnClickListener {
             mIsHorizantal = true;
             mIsVertical = false;
             setContentView(R.layout.booklist_horizantal);
-            //Button btn_read = (Button)findViewById(R.id.book_fragment_horizontal_btn_read);
-            //btn_read.setOnClickListener(this);
+            // Button btn_read =
+            // (Button)findViewById(R.id.book_fragment_horizontal_btn_read);
+            // btn_read.setOnClickListener(this);
         }
 
-        mBookManager = new BookManager();
-        mBookList = mBookManager.getSDcardBookList();
+        if (mApplication.getIsFirstTime()) {
+
+            mBookList = mBookManager.getSDcardBookList();
+            mApplication.setIsFirstTime(false);
+            mBookManager.setAppBookList(this, mBookList);
+        } else {
+            mBookList = mBookManager.getAppBookList(this);
+        }
         mPosition = DEFAULT_POSITION;
         mGridViewId = mIsVertical ? R.id.booklistgridv : R.id.booklistgridh;
         setGridView(mGridViewId);
@@ -187,6 +197,8 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     private GridView mGrid;
 
     private BookAdapter mAdapter;
-    
+
+    private MyApplication mApplication;
+
     private static final int DEFAULT_POSITION = 0;
 }

@@ -23,7 +23,8 @@ public class ChangeListGridActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booklist_listview); 
         mBookManager = new BookManager();
-        mBookList = mBookManager.getSDcardBookList();
+        // ****************************
+        mBookList = mBookManager.getAppBookList(this);
         setListView(R.id.book_listview);
 
     }

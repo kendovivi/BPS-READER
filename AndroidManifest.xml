@@ -9,6 +9,7 @@
         android:targetSdkVersion="18" />
 
     <application
+        android:name="bps.android.reader.application.MyApplication"
         android:allowBackup="true"
         android:configChanges="keyboardHidden|orientation"
         android:icon="@drawable/ic_launcher"

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
@@ -26,28 +25,18 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.bookdetails_vertical);
+
         mCurrentBookId = getIntent().getIntExtra("bookId", 0);
         mBookManager = new BookManager();
-        try {
-            mBookList = mBookManager.getSDcardBookList();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mBookList = mBookManager.getAppBookList(this);
 
-        //View v = getLayoutInflater().inflate(R.layout.details, null);
-        
-        
-        setContentView(R.layout.bookdetails_vertical);
         BookDetailsFragment bdf = new BookDetailsFragment();
         bdf.setArguments(getIntent().getExtras());
         FragmentManager manager = getFragmentManager();
         FragmentTransaction ft = manager.beginTransaction();
         ft.add(R.id.detailsv, bdf);
         ft.commit();
-        //btn_read = (Button)findViewById(R.id.book_fragment_horizontal_btn_read);
-        //btn_read.setOnClickListener(this);
-        
-
     }
 
     @Override
@@ -55,7 +44,6 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         Intent intent = new Intent();
         switch (v.getId()) {
             case R.id.book_fragment_horizontal_btn_read:
-                // intent.setClass(this, FxlEpubViewerActivity.class);
                 intent.setClass(this, SampleDialogShelfActivity.class);
                 intent.putExtra("bookId", mCurrentBookId);
                 intent.putExtra(EpubViewerActivity.INTENT_KEY_EPUB_CONTENTS,
@@ -65,8 +53,6 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         }
 
     }
-
-    private Button btn_read;
 
     private BookManager mBookManager;
 
