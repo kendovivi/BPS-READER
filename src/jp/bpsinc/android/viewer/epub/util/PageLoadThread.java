@@ -178,7 +178,8 @@ public class PageLoadThread implements Runnable {
 
 	private void postShowDialog(final int id) {
 		mHandler.post(new Runnable() {
-			@Override
+			@SuppressWarnings("deprecation")
+            @Override
 			public void run() {
 				mEpubViewerActivity.showDialog(id);
 			}

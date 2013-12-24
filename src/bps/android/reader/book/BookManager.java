@@ -10,7 +10,6 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.zip.ZipException;
 
-import jp.bpsinc.android.util.LogUtil;
 import jp.bpsinc.android.viewer.epub.content.EpubZipFile;
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
@@ -18,8 +17,6 @@ import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
-
-import com.example.bps_reader.R;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -31,6 +28,8 @@ import bps.android.reader.application.MyApplication;
 import bps.android.reader.listadapter.BookshelfEpubFile;
 import bps.android.reader.listadapter.BookshelfEpubPageAccess;
 import bps.android.reader.xmlparser.MyParser;
+
+import com.example.bps_reader.R;
 
 public class BookManager {
 

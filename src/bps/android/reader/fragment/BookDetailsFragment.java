@@ -5,15 +5,11 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.zip.ZipException;
 
-import jp.bpsinc.android.util.LogUtil;
 import jp.bpsinc.android.viewer.epub.activity.EpubViewerActivity;
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +29,6 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
     private ArrayList<BookInfo> mBookList;
 
     private BookManager mBookManager;
-
-    private Bitmap mCoverBitmap;
 
     private Button btn_read;
 

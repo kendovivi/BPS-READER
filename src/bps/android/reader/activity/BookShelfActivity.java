@@ -21,7 +21,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.GridView;
 import bps.android.reader.application.MyApplication;
 import bps.android.reader.book.BookInfo;
@@ -38,8 +37,6 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     private BookManager mBookManager;
 
     private int mPosition;
-
-    private boolean mIsHorizantal;
 
     private boolean mIsVertical;
 
@@ -154,11 +151,9 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         mBookManager = new BookManager();
         // portrait -> booklist_vertical, horizontal -> booklist_horizantal
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            mIsHorizantal = false;
             mIsVertical = true;
             setContentView(R.layout.booklist_vertical);
         } else {
-            mIsHorizantal = true;
             mIsVertical = false;
             setContentView(R.layout.booklist_horizantal);
             // Button btn_read =

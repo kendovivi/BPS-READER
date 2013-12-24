@@ -5,15 +5,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.zip.ZipException;
 
-import com.example.bps_reader.R;
-
-import bps.android.reader.book.BookInfo;
-
 import jp.bpsinc.android.util.LogUtil;
 import jp.bpsinc.android.viewer.db.AutoBookmarkTable;
-import jp.bpsinc.android.viewer.epub.content.EpubPageAccess;
 import jp.bpsinc.android.viewer.epub.content.EpubFile;
-import jp.bpsinc.android.viewer.epub.content.EpubViewerContents;
+import jp.bpsinc.android.viewer.epub.content.EpubPageAccess;
 import jp.bpsinc.android.viewer.epub.content.EpubZipFile;
 import jp.bpsinc.android.viewer.epub.content.Page;
 import jp.bpsinc.android.viewer.epub.dialog.EpubViewerDialog;
@@ -33,6 +28,9 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import bps.android.reader.book.BookInfo;
+
+import com.example.bps_reader.R;
 
 public abstract class EpubViewerActivity extends Activity {
 	/** ハードウェアアクセラレーション有効化用フラグ、APIレベル11未満用に定義 */
@@ -67,7 +65,8 @@ public abstract class EpubViewerActivity extends Activity {
 	/** オプションメニュー表示用のクラス */
 	protected EpubViewerMenu mEpubViewerMenu;
 
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		LogUtil.v();
 		super.onCreate(savedInstanceState);
@@ -208,7 +207,8 @@ public abstract class EpubViewerActivity extends Activity {
 		return EpubViewerDialog.createAlertDialog(this, id);
 	}
 
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		LogUtil.v();
 		EpubViewerDialog.prepareAlertDialog(this, id, dialog);
@@ -292,7 +292,8 @@ public abstract class EpubViewerActivity extends Activity {
 
 	public void postShowDialog(final int id) {
 		mHandler.post(new Runnable() {
-			@Override
+			@SuppressWarnings("deprecation")
+            @Override
 			public void run() {
 				showDialog(id);
 			}

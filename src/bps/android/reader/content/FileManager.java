@@ -24,6 +24,7 @@ public class FileManager {
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         InputStream input = context.getAssets().open("textSrc/" + bookName + ".txt");
         byte[] data = new byte[mByte];
+        @SuppressWarnings("unused")
         int count = -1;
         while ((count = input.read(data, 0, mByte)) != -1) {
             outStream.reset();

@@ -60,7 +60,8 @@ public class FxlEpubViewerOnGestureListener extends EpubViewerOnGestureListener 
 		return super.onFling(e1, e2, velocityX, velocityY);
 	}
 
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
 	public boolean onDoubleTap(MotionEvent e) {
 		LogUtil.v("MotionEvent");
 		if (isTouchEventDisable()) {

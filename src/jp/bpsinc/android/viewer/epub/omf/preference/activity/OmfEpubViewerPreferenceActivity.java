@@ -21,7 +21,8 @@ public class OmfEpubViewerPreferenceActivity extends PreferenceActivity implemen
 	/** 画面の明るさ */
 	private BrightnessPreference mBrightnessPreference;
 
-	@Override
+	@SuppressWarnings("deprecation")
+    @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		LogUtil.v();
 		super.onCreate(savedInstanceState);

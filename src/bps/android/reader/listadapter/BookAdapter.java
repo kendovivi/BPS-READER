@@ -9,8 +9,6 @@ import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +27,6 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
     public static final int GRID = 2;
 
     private Activity mActivity;
-
-    private Bitmap mBookCover;
     
     private int mListViewType;
 

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
 import bps.android.reader.fragment.BookDetailsFragment;
