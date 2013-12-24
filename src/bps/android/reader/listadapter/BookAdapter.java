@@ -73,7 +73,7 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         final BookInfo book = getItem(position);
         if (book != null) {
             try {
-                bookManager.getBookBmp(position, holder.bookCover, mActivity);
+                bookManager.setBookBmp(position, holder.bookCover, mActivity);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (ZipException e) {

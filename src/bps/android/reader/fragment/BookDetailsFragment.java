@@ -67,7 +67,7 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
 
         // set details bookCover bitmap\
         try {
-            mBookManager.getBookBmp(getBookId(), bookCover, getActivity());
+            mBookManager.setBookBmp(getBookId(), bookCover, getActivity());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (ZipException e) {
