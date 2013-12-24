@@ -10,6 +10,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.zip.ZipException;
 
+import jp.bpsinc.android.util.LogUtil;
 import jp.bpsinc.android.viewer.epub.content.EpubZipFile;
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
@@ -149,6 +150,33 @@ public class BookManager {
     }
 
     /**
+     * check the imageView for whether there is a task running in background
+     * 
+     * @param newPath
+     * @param imageView
+     * @return
+     */
+    public boolean cancelCurrentTask(String newPath, ImageView imageView) {
+
+        final BitmapWorkerTask task = getBitmapWorkerTask(imageView);
+        if (task != null) {
+            LogUtil.d(task + "");
+            final String loadingImagePath = task.mPath;
+            if (loadingImagePath != null) {
+                // when different, cancel the old task and start the new one
+                if (!loadingImagePath.equals(newPath)) {
+                    task.cancel(true);
+                } else {
+                    // no need to run the same task again
+                    return false;
+                }
+            }
+        }
+        // no task is running, start the task
+        return true;
+    }
+
+    /**
      * define load book cover bitmap thread task
      * 
      * @author kendovivi
@@ -158,7 +186,9 @@ public class BookManager {
 
         private Activity mActivity;
 
-        private Bitmap bitmap;
+        private Bitmap mBitmap;
+
+        String mPath;
 
         public BitmapWorkerTask(ImageView imageView, Activity activity) {
             mImageViewReference = new WeakReference<ImageView>(imageView);
@@ -168,14 +198,19 @@ public class BookManager {
         // start loading bitmap in background and return finished bitmap
         @Override
         protected Bitmap doInBackground(String... params) {
-            this.bitmap = getEpubCoverBitmap(params[0]);
-            return bitmap;
+            mPath = params[0];
+            this.mBitmap = getEpubCoverBitmap(params[0]);
+            return mBitmap;
         }
 
         // set imageView when bitmap loading is complete
         @Override
         protected void onPostExecute(Bitmap bitmap) {
-            if (mImageViewReference != null) {
+
+            if (isCancelled()) {
+                LogUtil.d(bitmap + "");
+                bitmap = null;
+            } else if (mImageViewReference != null) {
                 final ImageView imageView = mImageViewReference.get();
                 // use default cover bitmap
                 if (bitmap == null) {
@@ -262,11 +297,14 @@ public class BookManager {
      * @param activity
      */
     private void loadBitmap(String path, ImageView imageView, Activity activity) {
-        BitmapWorkerTask task = new BitmapWorkerTask(imageView, activity);
-        AsyncDrawable asyncDrawable = new AsyncDrawable(activity.getApplicationContext()
-                .getResources(), task.bitmap, task);
-        imageView.setImageDrawable(asyncDrawable);
-        task.execute(path);
+        // check whether the task is same or not
+        if (cancelCurrentTask(path, imageView)) {
+            BitmapWorkerTask task = new BitmapWorkerTask(imageView, activity);
+            AsyncDrawable asyncDrawable = new AsyncDrawable(activity.getApplicationContext()
+                    .getResources(), task.mBitmap, task);
+            imageView.setImageDrawable(asyncDrawable);
+            task.execute(path);
+        }
     }
 
 }
