@@ -43,11 +43,13 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
     public int getBookId() {
         return getArguments().getInt("bookId");
     }
+    
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        mBookManager = new BookManager();
-        mBookList = mBookManager.getAppBookList(this.getActivity());
+        mBookManager = new BookManager(this.getActivity());
+        mBookList = mBookManager.getAppBookList();
         if (container == null) {
             return null;
         }
@@ -63,7 +65,7 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
                 R.id.book_fragment_horizontal_ptime);
         ImageView bookCover = (ImageView)getActivity().findViewById(
                 R.id.book_fragment_horizontal_image);
-        btn_read = (Button)getActivity().findViewById(R.id.book_fragment_horizontal_btn_read);
+        
 
         // set details bookCover bitmap\
         try {
@@ -82,8 +84,9 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
         bookAuthor.setText("作者　:　" + mBookList.get(getBookId()).getmAuthor());
         bookPublisher.setText("出版社　: " + mBookList.get(getBookId()).getmPublisher());
         bookPTime.setText("出版時間　: " + mBookList.get(getBookId()).getmPtime());
+        btn_read = (Button)getActivity().findViewById(R.id.book_fragment_horizontal_btn_read);
         btn_read.setOnClickListener(this);
-        btn_read.setEnabled(true);
+        //btn_read.setOnClickListener(this);
         return v;
     }
 

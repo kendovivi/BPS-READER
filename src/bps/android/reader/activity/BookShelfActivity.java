@@ -7,7 +7,6 @@ import java.util.zip.ZipException;
 
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -37,7 +36,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     private BookManager mBookManager;
 
     private int mPosition;
-
+    /** aaa */
     private boolean mIsVertical;
 
     private boolean mIsDual;
@@ -111,16 +110,15 @@ public class BookShelfActivity extends Activity implements OnClickListener {
      * 
      * @param position
      */
-    @SuppressLint("NewApi")
     void showFragment(int position) {
         mPosition = position;
+
         // if horizontal, show details in the right frame
         if (mIsDual) {
             FragmentManager manager = getFragmentManager();
             BookDetailsFragment bdf = (BookDetailsFragment)manager
                     .findFragmentById(R.id.detailsxxx);
             if (bdf == null || bdf.getBookId() != position) {
-
                 bdf = BookDetailsFragment.newInstance(position);
                 FragmentTransaction ft = manager.beginTransaction();
                 ft.replace(R.id.detailsxxx, bdf);
@@ -148,7 +146,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     private void initVar() {
 
         mApplication = (MyApplication)this.getApplicationContext();
-        mBookManager = new BookManager();
+        mBookManager = new BookManager(this);
         // portrait -> booklist_vertical, horizontal -> booklist_horizantal
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             mIsVertical = true;
@@ -163,10 +161,13 @@ public class BookShelfActivity extends Activity implements OnClickListener {
 
         if (mApplication.getIsFirstTime()) {
             mBookList = mBookManager.getSDcardBookList();
+            // sort by name length test
+            // BookSort bs = new BookSort();
+            // bs.getSortedList(this, mBookList);
             mApplication.setIsFirstTime(false);
-            mBookManager.setAppBookList(this, mBookList);
+            mBookManager.setAppBookList(mBookList);
         } else {
-            mBookList = mBookManager.getAppBookList(this);
+            mBookList = mBookManager.getAppBookList();
         }
         mPosition = DEFAULT_POSITION;
         mGridViewId = mIsVertical ? R.id.booklistgridv : R.id.booklistgridh;

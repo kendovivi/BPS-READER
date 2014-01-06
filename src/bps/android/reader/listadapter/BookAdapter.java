@@ -9,12 +9,15 @@ import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import bps.android.reader.application.MyApplication;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
 
@@ -29,13 +32,31 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
     private Activity mActivity;
     
     private int mListViewType;
-
-    // private int defaultCoverViewId = R.drawable.default_book_cover;
+    
+    private LruCache<String, Bitmap> mMemoryCache;
 
     public BookAdapter(Activity a, int textViewResourceId, ArrayList<BookInfo> entries, int type) {
         super(a, textViewResourceId, entries);
         this.mActivity = a;
         this.mListViewType = type;
+        //get max available memory size (bytes)
+        int maxMemory = (int) Runtime.getRuntime().maxMemory();         //## another way to get available memory (Mbytes)
+                                                                        //Context context = a.getApplicationContext();
+                                                                        //int maxMemory = ((ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
+        
+        //use 1/8 of the available memory for memory cache
+        int cacheSize = maxMemory / 8;
+        mMemoryCache = new LruCache<String, Bitmap>(cacheSize){
+            
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap){
+                //return bitmap.getByteCount(); //requires API 12 or higher
+                return bitmap.getRowBytes() * bitmap.getHeight();
+            }
+        };
+        
+        MyApplication application = (MyApplication)a.getApplicationContext();
+        application.setMemoryCache(mMemoryCache);
     }
 
     public static class ViewHolder {
@@ -52,7 +73,7 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        BookManager bookManager = new BookManager();
+        BookManager bookManager = new BookManager(mActivity);
         View v = convertView;
         ViewHolder holder;
         if (v == null) {

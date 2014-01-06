@@ -26,8 +26,8 @@ public class ChangeListGridActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.booklist_listview);
-        BookManager mBookManager = new BookManager();
-        mBookList = mBookManager.getAppBookList(this);
+        BookManager mBookManager = new BookManager(this);
+        mBookList = mBookManager.getAppBookList();
         setListView(R.id.book_listview);
 
     }

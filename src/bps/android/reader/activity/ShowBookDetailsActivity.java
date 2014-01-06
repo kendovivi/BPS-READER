@@ -33,8 +33,8 @@ public class ShowBookDetailsActivity extends Activity implements OnClickListener
         setContentView(R.layout.bookdetails_vertical);
 
         mCurrentBookId = getIntent().getIntExtra("bookId", 0);
-        mBookManager = new BookManager();
-        mBookList = mBookManager.getAppBookList(this);
+        mBookManager = new BookManager(this);
+        mBookList = mBookManager.getAppBookList();
 
         BookDetailsFragment bdf = new BookDetailsFragment();
         bdf.setArguments(getIntent().getExtras());
