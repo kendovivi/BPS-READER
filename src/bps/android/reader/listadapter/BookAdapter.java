@@ -10,6 +10,9 @@ import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,33 +33,65 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
     public static final int GRID = 2;
 
     private Activity mActivity;
-    
+
     private int mListViewType;
-    
+
     private LruCache<String, Bitmap> mMemoryCache;
 
     public BookAdapter(Activity a, int textViewResourceId, ArrayList<BookInfo> entries, int type) {
         super(a, textViewResourceId, entries);
         this.mActivity = a;
         this.mListViewType = type;
-        //get max available memory size (bytes)
-        int maxMemory = (int) Runtime.getRuntime().maxMemory();         //## another way to get available memory (Mbytes)
-                                                                        //Context context = a.getApplicationContext();
-                                                                        //int maxMemory = ((ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
-        
-        //use 1/8 of the available memory for memory cache
-        int cacheSize = maxMemory / 8;
-        mMemoryCache = new LruCache<String, Bitmap>(cacheSize){
-            
-            @Override
-            protected int sizeOf(String key, Bitmap bitmap){
-                //return bitmap.getByteCount(); //requires API 12 or higher
-                return bitmap.getRowBytes() * bitmap.getHeight();
-            }
-        };
-        
+
+        RetainFragment retainFragment = RetainFragment.findOrCreateRetainFragment(a
+                .getFragmentManager());
+        mMemoryCache = retainFragment.mRetainedCache;
+
+        if (mMemoryCache == null) {
+            // get max available memory size (bytes)
+            int maxMemory = (int)Runtime.getRuntime().maxMemory(); // ## another way to get available memory (Mbytes)
+                                                                   // Context context = a.getApplicationContext();
+                                                                   // int maxMemory = ((ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
+
+            // use 1/8 of the available memory for memory cache
+            int cacheSize = maxMemory / 8;
+            mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+
+                @Override
+                protected int sizeOf(String key, Bitmap bitmap) {
+                    // return bitmap.getByteCount(); //requires API 12 or higher
+                    return bitmap.getRowBytes() * bitmap.getHeight();
+                }
+            };
+            retainFragment.mRetainedCache = mMemoryCache;
+        }
+
         MyApplication application = (MyApplication)a.getApplicationContext();
         application.setMemoryCache(mMemoryCache);
+    }
+
+    public static class RetainFragment extends Fragment {
+        private static final String TAG = "RetainFragment";
+
+        private LruCache<String, Bitmap> mRetainedCache;
+
+        public RetainFragment() {
+        }
+
+        public static RetainFragment findOrCreateRetainFragment(FragmentManager fm) {
+            RetainFragment fragment = (RetainFragment)fm.findFragmentByTag(TAG);
+            if (fragment == null) {
+                fragment = new RetainFragment();
+                fm.beginTransaction().add(fragment, TAG).commit();
+            }
+            return fragment;
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setRetainInstance(true);
+        }
     }
 
     public static class ViewHolder {
