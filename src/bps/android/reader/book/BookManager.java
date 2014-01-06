@@ -33,8 +33,6 @@ import bps.android.reader.listadapter.BookshelfEpubFile;
 import bps.android.reader.listadapter.BookshelfEpubPageAccess;
 import bps.android.reader.xmlparser.MyParser;
 
-import com.example.bps_reader.R;
-
 public class BookManager {
 
     private static final String SDCARD_PATH = Environment.getExternalStorageDirectory()
@@ -153,12 +151,12 @@ public class BookManager {
      * @throws EpubOtherException
      * @throws EpubParseException
      */
-    public void setBookBmp(int position, ImageView imageView, Activity activity)
+    public void setBookBmp(int position, ImageView imageView, Bitmap defBookCover, Activity activity)
             throws FileNotFoundException, ZipException, EpubOtherException, EpubParseException {
         // loadBitmap(new File(SDCARD_PATH, mFiles[position]).getPath(),
         // imageView, activity);
         mBookList = mApplication.getBookList();
-        loadBitmap(mBookList.get(position).getmEpubPath(), imageView, activity);
+        loadBitmap(mBookList.get(position).getmEpubPath(), imageView, defBookCover, activity);
     }
 
     /**
@@ -195,15 +193,15 @@ public class BookManager {
     class BitmapWorkerTask extends AsyncTask<String, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
 
-        private Activity mActivity;
-
         private Bitmap mBitmap;
+        
+        private Bitmap mDefBookCover;
 
         String mPath;
 
-        public BitmapWorkerTask(ImageView imageView, Activity activity) {
+        public BitmapWorkerTask(ImageView imageView, Bitmap defBookCover) {
             mImageViewReference = new WeakReference<ImageView>(imageView);
-            this.mActivity = activity;
+            this.mDefBookCover = defBookCover;
         }
 
         // start loading bitmap in background and return finished bitmap
@@ -235,9 +233,7 @@ public class BookManager {
                 final ImageView imageView = mImageViewReference.get();
                 // use default cover bitmap
                 if (bitmap == null) {
-                    int defaultCoverViewId = R.drawable.default_book_cover;
-                    bitmap = BitmapFactory.decodeResource(mActivity.getResources(),
-                            defaultCoverViewId);
+                    bitmap = mDefBookCover;
                 }
 
                 final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
@@ -317,7 +313,7 @@ public class BookManager {
      * @param imageView
      * @param activity
      */
-    private void loadBitmap(String path, ImageView imageView, Activity activity) {
+    private void loadBitmap(String path, ImageView imageView, Bitmap defBookCover, Activity activity) {
         //get image from cache
         Bitmap bitmapFromCache = getBitmapFromMemoryCache(path);
         mPathIgnoreList = mApplication.getPathIgnoreList();
@@ -326,14 +322,11 @@ public class BookManager {
             imageView.setImageBitmap(bitmapFromCache);
         } else if (mPathIgnoreList != null && mPathIgnoreList.contains(path)) {
             //if the path is in the ingoreList, use default cover image instead
-            int defaultCoverViewId = R.drawable.default_book_cover;
-            Bitmap bitmap = BitmapFactory.decodeResource(activity.getResources(),
-                    defaultCoverViewId);
-            imageView.setImageBitmap(bitmap);
+            imageView.setImageBitmap(defBookCover);
         } else {
             // check whether the task is same or not
             if (cancelCurrentTask(path, imageView)) {
-                BitmapWorkerTask task = new BitmapWorkerTask(imageView, activity);
+                BitmapWorkerTask task = new BitmapWorkerTask(imageView, defBookCover);
                 AsyncDrawable asyncDrawable = new AsyncDrawable(activity.getApplicationContext()
                         .getResources(), task.mBitmap, task);
                 imageView.setImageDrawable(asyncDrawable);

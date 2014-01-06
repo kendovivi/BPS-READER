@@ -10,6 +10,8 @@ import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,8 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
     private BookManager mBookManager;
 
     private Button btn_read;
+    
+    private Bitmap mDefaultCover;
 
     public static BookDetailsFragment newInstance(int bookId) {
         BookDetailsFragment bf = new BookDetailsFragment();
@@ -44,6 +48,11 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
         return getArguments().getInt("bookId");
     }
     
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        this.mDefaultCover = BitmapFactory.decodeResource(this.getResources(),R.drawable.default_book_cover);
+    }
 
 
     @Override
@@ -63,13 +72,13 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
                 R.id.book_fragment_horizontal_publisher);
         TextView bookPTime = (TextView)getActivity().findViewById(
                 R.id.book_fragment_horizontal_ptime);
-        ImageView bookCover = (ImageView)getActivity().findViewById(
+        ImageView bookCoverView = (ImageView)getActivity().findViewById(
                 R.id.book_fragment_horizontal_image);
         
 
         // set details bookCover bitmap\
         try {
-            mBookManager.setBookBmp(getBookId(), bookCover, getActivity());
+            mBookManager.setBookBmp(getBookId(), bookCoverView, mDefaultCover, getActivity());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (ZipException e) {

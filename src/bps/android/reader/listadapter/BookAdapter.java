@@ -10,6 +10,7 @@ import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -37,11 +38,14 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
     private int mListViewType;
 
     private LruCache<String, Bitmap> mMemoryCache;
+    
+    private Bitmap mDefaultCover;
 
     public BookAdapter(Activity a, int textViewResourceId, ArrayList<BookInfo> entries, int type) {
         super(a, textViewResourceId, entries);
         this.mActivity = a;
         this.mListViewType = type;
+        this.mDefaultCover = BitmapFactory.decodeResource(a.getResources(),R.drawable.default_book_cover);
 
         RetainFragment retainFragment = RetainFragment.findOrCreateRetainFragment(a
                 .getFragmentManager());
@@ -129,7 +133,7 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         final BookInfo book = getItem(position);
         if (book != null) {
             try {
-                bookManager.setBookBmp(position, holder.bookCover, mActivity);
+                bookManager.setBookBmp(position, holder.bookCover, mDefaultCover, mActivity);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (ZipException e) {

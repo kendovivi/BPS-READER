@@ -36,7 +36,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     private BookManager mBookManager;
 
     private int mPosition;
-    /** aaa */
+    
     private boolean mIsVertical;
 
     private boolean mIsDual;
