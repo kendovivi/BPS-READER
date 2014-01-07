@@ -8,12 +8,12 @@ import java.util.zip.ZipException;
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +21,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import bps.android.reader.application.MyApplication;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
+import bps.android.reader.cache.CacheManager;
 
 import com.example.bps_reader.R;
 
@@ -52,26 +52,10 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         mMemoryCache = retainFragment.mRetainedCache;
 
         if (mMemoryCache == null) {
-            // get max available memory size (bytes)
-            int maxMemory = (int)Runtime.getRuntime().maxMemory(); // ## another way to get available memory (Mbytes)
-                                                                   // Context context = a.getApplicationContext();
-                                                                   // int maxMemory = ((ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE)).getMemoryClass();
-
-            // use 1/8 of the available memory for memory cache
-            int cacheSize = maxMemory / 8;
-            mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
-
-                @Override
-                protected int sizeOf(String key, Bitmap bitmap) {
-                    // return bitmap.getByteCount(); //requires API 12 or higher
-                    return bitmap.getRowBytes() * bitmap.getHeight();
-                }
-            };
+            new CacheManager();
+            mMemoryCache = CacheManager.getMemoryCacheForImage();
             retainFragment.mRetainedCache = mMemoryCache;
         }
-
-        MyApplication application = (MyApplication)a.getApplicationContext();
-        application.setMemoryCache(mMemoryCache);
     }
 
     public static class RetainFragment extends Fragment {

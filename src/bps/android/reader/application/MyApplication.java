@@ -3,11 +3,8 @@ package bps.android.reader.application;
 
 import java.util.ArrayList;
 
-import bps.android.reader.book.BookInfo;
-
 import android.app.Application;
-import android.graphics.Bitmap;
-import android.support.v4.util.LruCache;
+import bps.android.reader.book.BookInfo;
 
 public class MyApplication extends Application {
 
@@ -16,8 +13,6 @@ public class MyApplication extends Application {
     private ArrayList<String> mPathIgnoreList;
 
     private boolean mIsFirstTime = true;
-    
-    private LruCache<String, Bitmap> mMemoryCache;
     
     @Override
     public void onCreate() {
@@ -46,13 +41,5 @@ public class MyApplication extends Application {
 
     public void setIsFirstTime(boolean isFirstTime) {
         this.mIsFirstTime = isFirstTime;
-    }
-    
-    public LruCache<String, Bitmap> getMemoryCache(){
-        return mMemoryCache;
-    }
-    
-    public void setMemoryCache(LruCache<String, Bitmap> memoryCache){
-        this.mMemoryCache = memoryCache;
     }
 }

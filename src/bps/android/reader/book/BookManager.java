@@ -29,6 +29,7 @@ import android.os.Environment;
 import android.support.v4.util.LruCache;
 import android.widget.ImageView;
 import bps.android.reader.application.MyApplication;
+import bps.android.reader.cache.CacheManager;
 import bps.android.reader.listadapter.BookshelfEpubFile;
 import bps.android.reader.listadapter.BookshelfEpubPageAccess;
 import bps.android.reader.xmlparser.MyParser;
@@ -340,11 +341,12 @@ public class BookManager {
         if (getBitmapFromMemoryCache(key) == null) {
             // put bitmap into memory cache
             mMemoryCache.put(key, bitmap);
+            CacheManager.setMemoryCacheForImage(mMemoryCache);
         }
     }
 
     private Bitmap getBitmapFromMemoryCache(String key) {
-        mMemoryCache = mApplication.getMemoryCache();
+        mMemoryCache = CacheManager.getMemoryCacheForImage();
         // read bitmap from cache
         return mMemoryCache.get(key);
     }
