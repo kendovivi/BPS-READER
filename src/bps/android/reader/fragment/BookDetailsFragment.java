@@ -33,7 +33,7 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
     private BookManager mBookManager;
 
     private Button btn_read;
-    
+
     private Bitmap mDefaultCover;
 
     public static BookDetailsFragment newInstance(int bookId) {
@@ -47,14 +47,13 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
     public int getBookId() {
         return getArguments().getInt("bookId");
     }
-    
-    @Override
-    public void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        this.mDefaultCover = BitmapFactory.decodeResource(this.getResources(),R.drawable.default_book_cover);
-        //setRetainInstance(true);
-    }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.mDefaultCover = BitmapFactory.decodeResource(this.getResources(),
+                R.drawable.default_book_cover);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,8 +62,15 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
         if (container == null) {
             return null;
         }
-        getActivity().getLayoutInflater().inflate(R.layout.details, container);
-        TextView v = new TextView(getActivity());
+        View fragmentView = inflater.inflate(R.layout.details, container, false);
+
+        return fragmentView;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onActivityCreated(savedInstanceState);
         TextView bookName = (TextView)getActivity()
                 .findViewById(R.id.book_fragment_horizontal_name);
         TextView bookAuthor = (TextView)getActivity().findViewById(
@@ -75,29 +81,28 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
                 R.id.book_fragment_horizontal_ptime);
         ImageView bookCoverView = (ImageView)getActivity().findViewById(
                 R.id.book_fragment_horizontal_image);
-        
 
-        // set details bookCover bitmap\
-        try {
-            mBookManager.setBookBmp(getBookId(), bookCoverView, mDefaultCover, getActivity());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (ZipException e) {
-            e.printStackTrace();
-        } catch (EpubOtherException e) {
-            e.printStackTrace();
-        } catch (EpubParseException e) {
-            e.printStackTrace();
+        if (bookCoverView != null) {
+            // set details bookCover bitmap\
+            try {
+                mBookManager.setBookBmp(getBookId(), bookCoverView, mDefaultCover, getActivity());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (ZipException e) {
+                e.printStackTrace();
+            } catch (EpubOtherException e) {
+                e.printStackTrace();
+            } catch (EpubParseException e) {
+                e.printStackTrace();
+            }
+            // fragmentView.setPadding(5, 5, 5, 5);
+            bookName.setText("本名　: " + mBookList.get(getBookId()).getmName());
+            bookAuthor.setText("作者　:　" + mBookList.get(getBookId()).getmAuthor());
+            bookPublisher.setText("出版社　: " + mBookList.get(getBookId()).getmPublisher());
+            bookPTime.setText("出版時間　: " + mBookList.get(getBookId()).getmPtime());
+            btn_read = (Button)getActivity().findViewById(R.id.book_fragment_horizontal_btn_read);
+            btn_read.setOnClickListener(this);
         }
-        v.setPadding(5, 5, 5, 5);
-        bookName.setText("本名　: " + mBookList.get(getBookId()).getmName());
-        bookAuthor.setText("作者　:　" + mBookList.get(getBookId()).getmAuthor());
-        bookPublisher.setText("出版社　: " + mBookList.get(getBookId()).getmPublisher());
-        bookPTime.setText("出版時間　: " + mBookList.get(getBookId()).getmPtime());
-        btn_read = (Button)getActivity().findViewById(R.id.book_fragment_horizontal_btn_read);
-        btn_read.setOnClickListener(this);
-        //btn_read.setOnClickListener(this);
-        return v;
     }
 
     @Override

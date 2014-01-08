@@ -17,20 +17,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import bps.android.reader.application.MyApplication;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
-import bps.android.reader.cache.CacheManager;
 import bps.android.reader.fragment.BookDetailsFragment;
 import bps.android.reader.listadapter.BookAdapter;
 
 import com.example.bps_reader.R;
 
-public class BookShelfActivity extends Activity implements OnClickListener {
+public class BookShelfActivity extends Activity{
 
     private static final int DEFAULT_POSITION = 0;
 
@@ -87,7 +85,6 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("curPosition", mPosition);
-        //CacheManager.getInstance().setMemoryCacheForImage(CacheManager.getInstance().getMemoryCacheForImage());
     }
 
     /**
@@ -114,7 +111,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
      */
     void showFragment(int position) {
         mPosition = position;
-
+        
         // if horizontal, show details in the right frame
         if (mIsDual) {
             FragmentManager manager = getFragmentManager();
@@ -123,11 +120,8 @@ public class BookShelfActivity extends Activity implements OnClickListener {
             if (bdf == null || bdf.getBookId() != position) {
                 bdf = BookDetailsFragment.newInstance(position);
                 FragmentTransaction ft = manager.beginTransaction();
-                ft.replace(R.id.detailsxxx, bdf);
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-                ft.commit();
+                ft.replace(R.id.detailsxxx, bdf).commit();
             }
-
             // if vertical, use showBookDetailsActivity to show book details
         } else {
             Intent intent = new Intent();
@@ -156,9 +150,6 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         } else {
             mIsVertical = false;
             setContentView(R.layout.booklist_horizantal);
-            // Button btn_read =
-            // (Button)findViewById(R.id.book_fragment_horizontal_btn_read);
-            // btn_read.setOnClickListener(this);
         }
 
         if (mApplication.getIsFirstTime()) {
@@ -180,23 +171,6 @@ public class BookShelfActivity extends Activity implements OnClickListener {
         if (mIsDual) {
             showFragment(mPosition);
         }
-    }
-
-    /**
-     * set onClick event
-     */
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.book_fragment_horizontal_btn_read:
-                Intent intent = new Intent();
-                intent.setClass(this, SampleDialogShelfActivity.class);
-                intent.putExtra("bookId", mPosition);
-                intent.putExtra("pageNum", 0);
-                startActivity(intent);
-                break;
-        }
-
     }
 
 }

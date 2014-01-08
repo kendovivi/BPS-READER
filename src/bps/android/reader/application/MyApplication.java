@@ -14,6 +14,8 @@ public class MyApplication extends Application {
 
     private boolean mIsFirstTime = true;
     
+    private int mCount;
+    
     @Override
     public void onCreate() {
         super.onCreate();
@@ -41,5 +43,13 @@ public class MyApplication extends Application {
 
     public void setIsFirstTime(boolean isFirstTime) {
         this.mIsFirstTime = isFirstTime;
+    }
+    
+    public void setCount(int count){
+        this.mCount = count;
+    }
+    
+    public int getCount(){
+        return mCount;
     }
 }
