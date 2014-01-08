@@ -87,7 +87,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("curPosition", mPosition);
-        CacheManager.getInstance().setMemoryCacheForImage(CacheManager.getInstance().getMemoryCacheForImage());
+        //CacheManager.getInstance().setMemoryCacheForImage(CacheManager.getInstance().getMemoryCacheForImage());
     }
 
     /**

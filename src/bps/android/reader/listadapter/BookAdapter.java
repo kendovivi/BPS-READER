@@ -11,7 +11,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
-import bps.android.reader.cache.CacheManager;
 
 import com.example.bps_reader.R;
 
@@ -34,21 +32,14 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
 
     private int mListViewType;
 
-    private LruCache<String, Bitmap> mMemoryCache;
-    
     private Bitmap mDefaultCover;
-
 
     public BookAdapter(Activity a, int textViewResourceId, ArrayList<BookInfo> entries, int type) {
         super(a, textViewResourceId, entries);
         this.mActivity = a;
         this.mListViewType = type;
-        this.mDefaultCover = BitmapFactory.decodeResource(a.getResources(),R.drawable.default_book_cover);
-        mMemoryCache = CacheManager.getInstance().getMemoryCacheForImage();
-
-        if (mMemoryCache == null) {
-            mMemoryCache = CacheManager.getInstance().getMemoryCacheForImage();
-        }
+        this.mDefaultCover = BitmapFactory.decodeResource(a.getResources(),
+                R.drawable.default_book_cover);
     }
 
     public static class ViewHolder {
