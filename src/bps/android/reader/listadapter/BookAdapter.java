@@ -52,8 +52,7 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         mMemoryCache = retainFragment.mRetainedCache;
 
         if (mMemoryCache == null) {
-            new CacheManager();
-            mMemoryCache = CacheManager.getMemoryCacheForImage();
+            mMemoryCache = CacheManager.getInstance().getMemoryCacheForImage();
             retainFragment.mRetainedCache = mMemoryCache;
         }
     }
@@ -63,8 +62,7 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
 
         private LruCache<String, Bitmap> mRetainedCache;
 
-        public RetainFragment() {
-        }
+        public RetainFragment() {}
 
         public static RetainFragment findOrCreateRetainFragment(FragmentManager fm) {
             RetainFragment fragment = (RetainFragment)fm.findFragmentByTag(TAG);

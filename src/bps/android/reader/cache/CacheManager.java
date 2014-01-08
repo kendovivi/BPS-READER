@@ -7,26 +7,34 @@ public class CacheManager {
     
     private static final int PERCENT_OF_MEMORY_TO_USE_FOR_CACHE = 25;
     
-    private static LruCache<String, Bitmap> memoryCacheForImage;
+    private static LruCache<String, Bitmap> sMemoryCacheForImage;
     
-    public CacheManager(){
-        memoryCacheForImage = new LruCache<String, Bitmap>(getCacheSize()){
-            @Override
-            protected int sizeOf(String key, Bitmap bitmap){
-                return bitmap.getRowBytes() * bitmap.getHeight();
-            }
-        };
+    private static CacheManager sInstance;
+    
+    public static CacheManager getInstance(){
+        if (sInstance == null){
+            sInstance = new CacheManager();
+        }
+        if (sMemoryCacheForImage == null){
+            sMemoryCacheForImage = new LruCache<String, Bitmap>(getCacheSize()){
+                @Override
+                protected int sizeOf(String key, Bitmap bitmap){
+                    return bitmap.getRowBytes() * bitmap.getHeight();
+                }
+            };
+        }
+        return sInstance;
     }
     
-    public static LruCache<String, Bitmap> getMemoryCacheForImage(){
-        return memoryCacheForImage;
+    public LruCache<String, Bitmap> getMemoryCacheForImage(){
+        return sMemoryCacheForImage;
     }
     
-    public static void setMemoryCacheForImage(LruCache<String, Bitmap> memoryCache){
-        memoryCacheForImage = memoryCache;
+    public void setMemoryCacheForImage(LruCache<String, Bitmap> memoryCache){
+        sMemoryCacheForImage = memoryCache;
     }
     
-    public int getCacheSize(){
+    private static int getCacheSize(){
         //bytes
         int MaxMemory = (int)Runtime.getRuntime().maxMemory();
         // ## another way to get available memory (Mbytes)

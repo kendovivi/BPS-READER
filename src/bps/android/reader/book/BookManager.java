@@ -341,12 +341,12 @@ public class BookManager {
         if (getBitmapFromMemoryCache(key) == null) {
             // put bitmap into memory cache
             mMemoryCache.put(key, bitmap);
-            CacheManager.setMemoryCacheForImage(mMemoryCache);
+            CacheManager.getInstance().setMemoryCacheForImage(mMemoryCache);
         }
     }
 
     private Bitmap getBitmapFromMemoryCache(String key) {
-        mMemoryCache = CacheManager.getMemoryCacheForImage();
+        mMemoryCache = CacheManager.getInstance().getMemoryCacheForImage();
         // read bitmap from cache
         return mMemoryCache.get(key);
     }
