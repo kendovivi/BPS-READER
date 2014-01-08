@@ -52,6 +52,7 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         this.mDefaultCover = BitmapFactory.decodeResource(this.getResources(),R.drawable.default_book_cover);
+        //setRetainInstance(true);
     }
 
 

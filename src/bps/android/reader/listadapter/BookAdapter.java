@@ -8,12 +8,9 @@ import java.util.zip.ZipException;
 import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
 import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.support.v4.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,42 +38,16 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
     
     private Bitmap mDefaultCover;
 
+
     public BookAdapter(Activity a, int textViewResourceId, ArrayList<BookInfo> entries, int type) {
         super(a, textViewResourceId, entries);
         this.mActivity = a;
         this.mListViewType = type;
         this.mDefaultCover = BitmapFactory.decodeResource(a.getResources(),R.drawable.default_book_cover);
-
-        RetainFragment retainFragment = RetainFragment.findOrCreateRetainFragment(a
-                .getFragmentManager());
-        mMemoryCache = retainFragment.mRetainedCache;
+        mMemoryCache = CacheManager.getInstance().getMemoryCacheForImage();
 
         if (mMemoryCache == null) {
             mMemoryCache = CacheManager.getInstance().getMemoryCacheForImage();
-            retainFragment.mRetainedCache = mMemoryCache;
-        }
-    }
-
-    public static class RetainFragment extends Fragment {
-        private static final String TAG = "RetainFragment";
-
-        private LruCache<String, Bitmap> mRetainedCache;
-
-        public RetainFragment() {}
-
-        public static RetainFragment findOrCreateRetainFragment(FragmentManager fm) {
-            RetainFragment fragment = (RetainFragment)fm.findFragmentByTag(TAG);
-            if (fragment == null) {
-                fragment = new RetainFragment();
-                fm.beginTransaction().add(fragment, TAG).commit();
-            }
-            return fragment;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setRetainInstance(true);
         }
     }
 

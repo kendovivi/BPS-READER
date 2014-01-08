@@ -24,6 +24,7 @@ import android.widget.GridView;
 import bps.android.reader.application.MyApplication;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
+import bps.android.reader.cache.CacheManager;
 import bps.android.reader.fragment.BookDetailsFragment;
 import bps.android.reader.listadapter.BookAdapter;
 
@@ -86,6 +87,7 @@ public class BookShelfActivity extends Activity implements OnClickListener {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("curPosition", mPosition);
+        CacheManager.getInstance().setMemoryCacheForImage(CacheManager.getInstance().getMemoryCacheForImage());
     }
 
     /**
