@@ -285,7 +285,8 @@ public class BookManager {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            return epubFile.getCoverItem().isCoverImage() ? BitmapFactory.decodeStream(is) : null;
+            //return epubFile.getCoverItem().isCoverImage() ? BitmapFactory.decodeStream(is) : null;
+            return BitmapFactory.decodeStream(is);
         }
     }
 
