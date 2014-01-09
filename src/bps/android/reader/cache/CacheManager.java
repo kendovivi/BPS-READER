@@ -43,4 +43,8 @@ public class CacheManager {
         int cacheSize = (int)(MaxMemory * (PERCENT_OF_MEMORY_TO_USE_FOR_CACHE / 100.0));
         return cacheSize;
     }
+    
+    public static void clear(){
+        sMemoryCacheForImage.evictAll();
+    }
 }

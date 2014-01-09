@@ -96,7 +96,7 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
                 e.printStackTrace();
             }
             // fragmentView.setPadding(5, 5, 5, 5);
-            bookName.setText("本名　: " + mBookList.get(getBookId()).getmName());
+            bookName.setText("タイトル　: " + mBookList.get(getBookId()).getmName());
             bookAuthor.setText("作者　:　" + mBookList.get(getBookId()).getmAuthor());
             bookPublisher.setText("出版社　: " + mBookList.get(getBookId()).getmPublisher());
             bookPTime.setText("出版時間　: " + mBookList.get(getBookId()).getmPtime());

@@ -18,11 +18,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import bps.android.reader.application.MyApplication;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
+import bps.android.reader.cache.CacheManager;
 import bps.android.reader.fragment.BookDetailsFragment;
 import bps.android.reader.listadapter.BookAdapter;
 
@@ -75,6 +77,9 @@ public class BookShelfActivity extends Activity{
                 intent.setClass(this, ChangeListGridActivity.class);
                 this.startActivity(intent);
                 break;
+            case R.id.clear_cache:
+                CacheManager.clear();
+                Toast.makeText(this, "cache cleared!", Toast.LENGTH_SHORT).show();
             default:
                 break;
         }
@@ -172,5 +177,7 @@ public class BookShelfActivity extends Activity{
             showFragment(mPosition);
         }
     }
-
+    
+   
+    
 }

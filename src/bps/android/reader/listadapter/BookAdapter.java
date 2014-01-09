@@ -34,12 +34,17 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
 
     private Bitmap mDefaultCover;
 
+    //private Bitmap mLoadingCover;
+
     public BookAdapter(Activity a, int textViewResourceId, ArrayList<BookInfo> entries, int type) {
         super(a, textViewResourceId, entries);
         this.mActivity = a;
         this.mListViewType = type;
         this.mDefaultCover = BitmapFactory.decodeResource(a.getResources(),
                 R.drawable.default_book_cover);
+        //this.mLoadingCover = BitmapFactory.decodeResource(a.getResources(), R.drawable.book_rails);
+        
+        
     }
 
     public static class ViewHolder {
@@ -77,6 +82,8 @@ public class BookAdapter extends ArrayAdapter<BookInfo> {
         final BookInfo book = getItem(position);
         if (book != null) {
             try {
+                //####set the loading cover here did not work well
+                //holder.bookCover.setImageBitmap(mLoadingCover);
                 bookManager.setBookBmp(position, holder.bookCover, mDefaultCover, mActivity);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
