@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import bps.android.reader.activity.SampleDialogShelfActivity;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
 
@@ -32,7 +31,9 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
 
     private BookManager mBookManager;
 
-    private Button btn_read;
+    private Button btn_fxl;
+
+    private Button btn_omf;
 
     private Bitmap mDefaultCover;
 
@@ -100,8 +101,10 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
             bookAuthor.setText("作者　:　" + mBookList.get(getBookId()).getmAuthor());
             bookPublisher.setText("出版社　: " + mBookList.get(getBookId()).getmPublisher());
             bookPTime.setText("出版時間　: " + mBookList.get(getBookId()).getmPtime());
-            btn_read = (Button)getActivity().findViewById(R.id.book_fragment_horizontal_btn_read);
-            btn_read.setOnClickListener(this);
+            btn_fxl = (Button)getActivity().findViewById(R.id.btn_fxl);
+            btn_omf = (Button)getActivity().findViewById(R.id.btn_omf);
+            btn_fxl.setOnClickListener(this);
+            btn_omf.setOnClickListener(this);
         }
     }
 
@@ -109,8 +112,17 @@ public class BookDetailsFragment extends Fragment implements OnClickListener {
     public void onClick(View v) {
         Intent intent = new Intent();
         switch (v.getId()) {
-            case R.id.book_fragment_horizontal_btn_read:
-                intent.setClass(getActivity(), SampleDialogShelfActivity.class);
+            case R.id.btn_fxl:
+                intent.setClass(getActivity(),
+                        jp.bpsinc.android.viewer.epub.fxl.activity.FxlEpubViewerActivity.class);
+                intent.putExtra("bookId", getBookId());
+                intent.putExtra(EpubViewerActivity.INTENT_KEY_EPUB_CONTENTS,
+                        mBookList.get(getBookId()));
+                startActivity(intent);
+                break;
+            case R.id.btn_omf:
+                intent.setClass(getActivity(),
+                        jp.bpsinc.android.viewer.epub.omf.activity.OmfEpubViewerActivity.class);
                 intent.putExtra("bookId", getBookId());
                 intent.putExtra(EpubViewerActivity.INTENT_KEY_EPUB_CONTENTS,
                         mBookList.get(getBookId()));
