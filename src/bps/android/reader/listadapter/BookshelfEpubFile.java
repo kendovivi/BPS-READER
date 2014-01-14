@@ -123,8 +123,6 @@ public class BookshelfEpubFile implements Serializable {
 
 						OpfItem item = new OpfItem(id, href, mediaType, properties);
 						mItems.put(id, item);
-						String idref = parser.getAttributeValue(null, "idref");
-						mCoverItem = mItems.get(idref);
 						if (item.isCoverImage()) {
 							// カバー見つかったらすぐ終了
 							mCoverItem = item;
