@@ -1,36 +1,34 @@
 
 package bps.android.reader.activity;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.zip.ZipException;
-
-import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
-import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
-import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.Toast;
 import bps.android.reader.application.MyApplication;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
 import bps.android.reader.cache.CacheManager;
 import bps.android.reader.fragment.BookDetailsFragment;
 import bps.android.reader.listadapter.BookAdapter;
-
 import com.example.bps_reader.R;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.zip.ZipException;
+import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
+import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 
-public class BookShelfActivity extends Activity{
+public class BookShelfActivity extends FragmentActivity{
 
     private static final int DEFAULT_POSITION = 0;
 
@@ -119,7 +117,7 @@ public class BookShelfActivity extends Activity{
         
         // if horizontal, show details in the right frame
         if (mIsDual) {
-            FragmentManager manager = getFragmentManager();
+            FragmentManager manager = getSupportFragmentManager();
             BookDetailsFragment bdf = (BookDetailsFragment)manager
                     .findFragmentById(R.id.detailsxxx);
             if (bdf == null || bdf.getBookId() != position) {

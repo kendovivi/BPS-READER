@@ -22,6 +22,7 @@ import android.app.Activity;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -51,7 +52,7 @@ public class BookManager {
     private LruCache<String, Bitmap> mMemoryCache;
 
     private MyApplication mApplication;
-    
+
     private Bitmap mLoadingCover;
 
     public BookManager(Activity activity) {
@@ -212,7 +213,7 @@ public class BookManager {
             this.mPath = path;
         }
 
-        //set Loading Cover before AsyncTask start in background
+        // set Loading Cover before AsyncTask start in background
         @Override
         protected void onPreExecute() {
             ImageView imageView = mImageViewReference.get();
@@ -255,11 +256,11 @@ public class BookManager {
                     bitmap = mDefBookCover;
                 }
 
-                 //final BitmapWorkerTask bitmapWorkerTask =
-                 //getBitmapWorkerTask(imageView);
-                 //if (this == bitmapWorkerTask && imageView != null) {
+                // final BitmapWorkerTask bitmapWorkerTask =
+                // getBitmapWorkerTask(imageView);
+                // if (this == bitmapWorkerTask && imageView != null) {
                 imageView.setImageBitmap(bitmap);
-                 //}
+                // }
             }
         }
 
@@ -285,8 +286,12 @@ public class BookManager {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            //return epubFile.getCoverItem().isCoverImage() ? BitmapFactory.decodeStream(is) : null;
-            return BitmapFactory.decodeStream(is);
+            // return epubFile.getCoverItem().isCoverImage() ?
+            // BitmapFactory.decodeStream(is) : null;
+            Options opts = new BitmapFactory.Options();
+            opts.inSampleSize = 8;
+
+            return BitmapFactory.decodeStream(is, null, opts);
         }
     }
 

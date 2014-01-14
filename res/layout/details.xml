@@ -42,22 +42,26 @@
         android:layout_alignLeft="@id/book_fragment_horizontal_name"
         android:layout_below="@id/book_fragment_horizontal_publisher" />
     
-    <Button
-        android:id="@+id/btn_fxl"
+    <RadioGroup
+        android:id="@+id/radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/book_fragment_horizontal_name"
-        android:layout_below="@id/book_fragment_horizontal_ptime"
+        android:layout_below="@id/book_fragment_horizontal_ptime" >
+        
+    <RadioButton
+        android:id="@+id/btn_fxl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="@string/fxl" />
     
-    <Button
+    <RadioButton
         android:id="@+id/btn_omf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/btn_fxl"
-        android:layout_below="@id/book_fragment_horizontal_ptime"
-        android:layout_marginTop="10dp"
         android:text="@string/omf" />
+    
+    </RadioGroup>
 
 </RelativeLayout>

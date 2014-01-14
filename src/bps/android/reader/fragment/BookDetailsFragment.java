@@ -1,18 +1,11 @@
 
 package bps.android.reader.fragment;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.zip.ZipException;
-
-import jp.bpsinc.android.viewer.epub.activity.EpubViewerActivity;
-import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
-import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,8 +15,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import bps.android.reader.book.BookInfo;
 import bps.android.reader.book.BookManager;
-
 import com.example.bps_reader.R;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.zip.ZipException;
+import jp.bpsinc.android.viewer.epub.activity.EpubViewerActivity;
+import jp.bpsinc.android.viewer.epub.exception.EpubOtherException;
+import jp.bpsinc.android.viewer.epub.exception.EpubParseException;
 
 public class BookDetailsFragment extends Fragment implements OnClickListener {
 
